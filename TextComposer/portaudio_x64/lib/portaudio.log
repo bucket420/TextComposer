@@ -1,0 +1,67 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(36,5): warning MSB4211: The property "IntermediateOutputPath" is being set to a value for the first time, but it was already consumed at "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets (35,5)".
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(337,5): warning MSB4211: The property "CleanFile" is being set to a value for the first time, but it was already consumed at "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets (35,5)".
+  pa_allocation.c
+  pa_converters.c
+  pa_cpuload.c
+  pa_debugprint.c
+D:\OneDrive\Desktop\MusicProject\portaudio\src\common\pa_debugprint.c(109,9): warning C4996: '_vsnprintf': This function or variable may be unsafe. Consider using _vsnprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  pa_dither.c
+  pa_front.c
+D:\OneDrive\Desktop\MusicProject\portaudio\src\common\pa_front.c(151,5): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  pa_process.c
+  pa_ringbuffer.c
+  pa_stream.c
+  pa_trace.c
+  pa_win_ds.c
+  pa_win_ds_dynlink.c
+  pa_hostapi_skeleton.c
+  pa_win_wasapi.c
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wasapi\pa_win_wasapi.c(1862,9): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wasapi\pa_win_wasapi.c(1899,17): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  pa_win_wdmks.c
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(707,5): warning C4996: '_vsnprintf': This function or variable may be unsafe. Consider using _vsnprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1263,25): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1266,21): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1661,27): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1794,35): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1889,39): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1967,55): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1993,19): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1693,17): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(1722,21): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(2711,5): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(2714,5): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(3583,25): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(3590,25): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(3605,34): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wdmks\pa_win_wdmks.c(3608,25): warning C4996: '_snwprintf': This function or variable may be unsafe. Consider using _snwprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  pa_win_wmme.c
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wmme\pa_win_wmme.c(721,15): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\wmme\pa_win_wmme.c(857,15): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  pa_win_coinitialize.c
+  pa_win_hostapis.c
+  pa_win_util.c
+  pa_win_waveformat.c
+  Generating Code...
+  Compiling...
+  pa_win_wdmks_utils.c
+  pa_x86_plain_converters.c
+  Generating Code...
+  asio.cpp
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\common\asio.cpp(76,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\common\asio.cpp(86,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\common\asio.cpp(205,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  asiodrivers.cpp
+  asiolist.cpp
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\host\pc\asiolist.cpp(24,41): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\host\pc\asiolist.cpp(31,42): warning C4267: 'argument': conversion from 'size_t' to 'DWORD', possible loss of data
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\host\pc\asiolist.cpp(87,8): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\host\pc\asiolist.cpp(89,12): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\host\pc\asiolist.cpp(224,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\OneDrive\Desktop\MusicProject\portaudio\src\hostapi\asio\ASIOSDK\host\pc\asiolist.cpp(246,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  pa_asio.cpp
+  Generating Code...
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1316,5): warning MSB8012: TargetPath(D:\OneDrive\Desktop\MusicProject\portaudio\build\msvc\x64\Release\portaudio.dll) does not match the Linker's OutputFile property value (D:\OneDrive\Desktop\MusicProject\portaudio\build\msvc\x64\Release\portaudio_x64.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1318,5): warning MSB8012: TargetName(portaudio) does not match the Linker's OutputFile property value (portaudio_x64). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library x64\Release/portaudio_x64.lib and object x64\Release/portaudio_x64.exp
+  portaudio.vcxproj -> D:\OneDrive\Desktop\MusicProject\portaudio\build\msvc\x64\Release\portaudio.dll
