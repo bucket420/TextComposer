@@ -15,15 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\TextScore\TextScore\Wavetable.cpp">
+    <ClCompile Include="Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\TextScore\TextScore\main.cpp">
+    <ClCompile Include="Wavetable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\TextScore\TextScore\Wavetable.h">
+    <ClInclude Include="Input.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wavetable.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

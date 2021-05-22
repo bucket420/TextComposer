@@ -145,11 +145,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\TextScore\TextScore\main.cpp" />
-    <ClCompile Include="..\..\TextScore\TextScore\Wavetable.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Wavetable.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\TextScore\TextScore\Wavetable.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Wavetable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
