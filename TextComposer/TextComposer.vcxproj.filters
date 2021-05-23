@@ -18,7 +18,7 @@
     <ClCompile Include="Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Wavetable.cpp">
+    <ClCompile Include="Wave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,7 +26,7 @@
     <ClInclude Include="Input.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Wavetable.h">
+    <ClInclude Include="Wave.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
