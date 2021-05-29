@@ -36,4 +36,4 @@ std::vector<std::string> Input::getNotes()
 		}
 		notes[i] = (*input).substr(noteIndexes[i], (long long)noteIndexes[i + 1] - noteIndexes[i]);
 	}
-}  
+}	
