@@ -145,11 +145,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Wave.h" />

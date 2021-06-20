@@ -1,26 +1,12 @@
 #include <math.h>
 #include <vector>
 #include "Wave.h"
-
-#define M_PI  (3.14159265)
+#include "Constants.h"
 
 Wave::Wave()
 {
 	waveTable->assign(0, 0.0);
 }
-
-std::vector<double>* Wave::createSineLUT(int size)
-{
-	std::vector<double>* sineLUT;
-	sineLUT->assign(size, 0.0);
-	for (int i = 0; i < size; i++)
-	{
-		(*sineLUT)[i] = (float)sin((double)i * M_PI * 2.0 / (double)size);
-	}
-	return sineLUT;
-}
-
-const std::vector<double>* Wave::LUT = Wave::createSineLUT(2048);
 
 std::vector<double> Wave::createSine(double freq, double duration)
 {
