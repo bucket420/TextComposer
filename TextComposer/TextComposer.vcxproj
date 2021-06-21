@@ -148,6 +148,7 @@
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Note.cpp" />
+    <ClCompile Include="TextComposer.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
