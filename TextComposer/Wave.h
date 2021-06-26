@@ -6,9 +6,11 @@
 class Wave
 {
 public:
-	std::vector<double>* waveTable;
+	std::vector<double> waveTable;
 	int tableSize;
 
+	Wave();
+	Wave(std::vector<double> waveTable);
 
 	static std::vector<double> createSine(double freq, double duration);
 

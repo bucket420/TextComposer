@@ -145,16 +145,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioOutput.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Note.cpp" />
     <ClCompile Include="TextComposer.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioOutput.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Note.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,13 +21,13 @@
     <ClCompile Include="Wave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Note.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextComposer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,10 +38,10 @@
     <ClInclude Include="Wave.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Note.h">
+    <ClInclude Include="Constants.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.h">
+    <ClInclude Include="AudioOutput.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
