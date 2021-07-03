@@ -9,13 +9,11 @@ Wave::Wave()
 {
 	waveTable = {};
 	tableSize = 0;
-	std::cout << "Create wave successfully" << std::endl;
 }
 
 Wave::Wave(std::vector<double> waveTable) {
 	this->waveTable = waveTable;
 	tableSize = waveTable.size();
-	std::cout << "Create wave successfully" << std::endl;
 }
 
 std::vector<double> Wave::createSine(double freq, double duration)

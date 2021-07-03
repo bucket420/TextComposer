@@ -44,15 +44,9 @@ int main(void)
 
     Input inputHandler(input);
     std::vector<double> waveTable = inputHandler.wave.waveTable;
-    std::cout << waveTable.size() << std::endl;
     AudioOutput output(waveTable);
     AudioOutput* outputPointer = &output;
 
-    std::cout << outputPointer->waveTable.size() << std::endl;
-    //for (int i = 0; i < 2048; i++)
-    //{
-    //    std::cout << outputPointer->waveTable[i] << std::endl;
-    //}
 
 
     ScopedPaHandler paInit;

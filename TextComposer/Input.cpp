@@ -23,7 +23,6 @@ std::vector<int> Input::getNoteIndexes(std::string input)
 			noteIndexes.push_back(i);
 		}
 	}
-	std::cout << "Got note indexes successfully" << std::endl;
 	return noteIndexes;
 }
 
@@ -37,7 +36,6 @@ std::vector<std::string> Input::getNotes(std::string input)
 		if (i == noteIndexes.size() - 1) 
 		{
 			notes[i] = input.substr(noteIndexes[i]);
-			std::cout << "Got notes successfully" << std::endl;
 			return notes;
 		}
 		notes[i] = input.substr(noteIndexes[i], (long long)noteIndexes[i + 1] - noteIndexes[i]);
@@ -46,17 +44,17 @@ std::vector<std::string> Input::getNotes(std::string input)
 
 double Input::getNoteDuration(std::string note) 
 {
-	int halfCount = std::count(note.begin(), note.end(), '-');
-	int eighthCount = std::count(note.begin(), note.end(), '.');
-	return halfCount * 0.5 + eighthCount * 0.125;
+	int eighthCount = std::count(note.begin(), note.end(), '-');
+	int sixtyfourthCount = std::count(note.begin(), note.end(), '.');
+	return 2.0 * ((double) sixtyfourthCount * 1.0 / 64.0 + (double) eighthCount * 0.125);
 }
 
 double Input::getNoteFreq(std::string name)
 {
 	char letter = name[0];
 	int octaveNumber = name[name.length() - 1] - '0';
-	const char* iterator = std::find(FIRST_OCTAVE, FIRST_OCTAVE + 7, letter);
-	int index = iterator - FIRST_OCTAVE;
+	const char* iterator = std::find(OCTAVE, OCTAVE + 7, letter);
+	int index = iterator - OCTAVE;
 	double freq = 0;
 	if (name.length() == 2)
 	{
@@ -91,9 +89,6 @@ Wave Input::inputToWavetable(std::string input)
 		{
 			name = noteList[i].substr(0, 2);
 		}
-		std::cout << "Name: " << name << std::endl;
-		std::cout << "Duration: " << duration << std::endl;
-		std::cout << "Frequency: " << getNoteFreq(name) << std::endl;
 		wave.appendWaves(Wave::createSine(getNoteFreq(name), duration));
 	}
 	std::cout << wave.waveTable.size() << std::endl;
