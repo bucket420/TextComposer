@@ -37,13 +37,34 @@ private:
 int main(void);
 int main(void)
 {
-    std::cout << "Your score: ";
+    int mode;
+    std::cout << "Choose your mode:     1. Notes        2. Chord Progression Formula" << std::endl;
+    std::cin >> mode;
+
+    std::string key;
+    if (mode == 2)
+    {
+        std::cout << "Choose your key: " << std::endl;
+        std::cin >> key;
+    }
+
+    std::cout << "Your score: " << std::endl;
 
     std::string input;
     std::cin >> input;
 
-    Input inputHandler(input);
-    std::vector<double> waveTable = inputHandler.wave.waveTable;
+    std::vector<double> waveTable;
+
+    if (mode == 1)
+    {
+        Input inputHandler(input);
+        waveTable = inputHandler.wave.waveTable;
+    }
+    if (mode == 2)
+    {
+        Input inputHandler(input, key);
+        waveTable = inputHandler.wave.waveTable;
+    }
     AudioOutput output(waveTable);
     AudioOutput* outputPointer = &output;
 
