@@ -201,20 +201,24 @@ std::vector<double> Input::chordToWavetable(std::string chord, std::array<double
 		wave.addWaves(Wave::createSine(scale[step + 3], duration));
 		wave.addWaves(Wave::createSine(scale[step + 6], duration));
 	}
-	if (chord[romanNumber.size()] == 'a' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'a'))
+	else if (chord[romanNumber.size()] == 'a' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'a'))
 	{
 		wave.addWaves(Wave::createSine(scale[step + 4], duration));
 		wave.addWaves(Wave::createSine(scale[step + 8], duration));
 	}
-	if (isupper(chord[0]))
+	else if (isupper(chord[0]))
 	{
 		wave.addWaves(Wave::createSine(scale[step + 4], duration));
 		wave.addWaves(Wave::createSine(scale[step + 7], duration));
 	}
-	if (!isupper(chord[0]))
+	else if (!isupper(chord[0]))
 	{
 		wave.addWaves(Wave::createSine(scale[step + 3], duration));
 		wave.addWaves(Wave::createSine(scale[step + 7], duration));
+	}
+	for (int i = 0; i < wave.waveTable.size(); i++)
+	{
+		wave.waveTable[i] /= 3.0;
 	}
 	return wave.waveTable;
 }
