@@ -8,7 +8,7 @@ class Input
 {
 public:
 	Input(std::string input);
-	Input(std::string input, std::string key);
+	Input(std::string input, std::string key, std::string scaleType);
 	Wave wave;
 
 private:
@@ -23,10 +23,10 @@ private:
 
 	// Second mode:
 	std::array<double, 25> createTwoOctaveScale(std::string key);
-	Wave inputToWavetableSecondMode(std::string input, std::string key);
+	Wave inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType);
 	std::vector<int> getChordIndexes(std::string input);
 	std::vector<std::string> getChords(std::string input);
-	std::vector<double> chordToWavetable(std::string chord, std::array<double, 25> scale);
+	std::vector<double> chordToWavetable(std::string chord, std::array<double, 25> scale, std::string scaleType);
 	std::string getRomanNumber(std::string chord);
 	std::string toUpper(std::string string);
 };

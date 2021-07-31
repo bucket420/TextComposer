@@ -13,9 +13,9 @@ Input::Input(std::string input)
 	this->wave = inputToWavetableFirstMode(input);
 }
 
-Input::Input(std::string input, std::string key)
+Input::Input(std::string input, std::string key, std::string scaleType)
 {
-	this->wave = inputToWavetableSecondMode(input, key);
+	this->wave = inputToWavetableSecondMode(input, key, scaleType);
 }
 
 std::vector<int> Input::getNoteIndexes(std::string input)
@@ -103,15 +103,7 @@ Wave Input::inputToWavetableFirstMode(std::string input)
 std::array<double, 25> Input::createTwoOctaveScale(std::string key) 
 {
 	std::array<double, 25> twoOctaveScale;
-	double firstNote;
-	if (key[0] == 'G' || key[0] == 'A' || key[0] == 'B')
-	{
-		firstNote = getNoteFreq(key + '3');
-	}
-	else
-	{
-		firstNote = getNoteFreq(key + '4');
-	}
+	double firstNote = getNoteFreq(key + '4') * pow(2.0, -1.0 / 12.0);
 	if (key[1] == '#')
 	{
 		firstNote *= pow(2.0, 1.0 / 12.0);
@@ -122,7 +114,7 @@ std::array<double, 25> Input::createTwoOctaveScale(std::string key)
 	}
 	for (int i = 0; i < 25; i++)
 	{
-		twoOctaveScale[i] = firstNote * 2.0 * pow(2.0, (double)i / 12.0);
+		twoOctaveScale[i] = firstNote * pow(2.0, (double)i / 12.0);
 	}
 	return twoOctaveScale;
 }
@@ -178,7 +170,7 @@ std::string Input::getRomanNumber(std::string chord)
 	return chord;
 }
 
-std::vector<double> Input::chordToWavetable(std::string chord, std::array<double, 25> scale)
+std::vector<double> Input::chordToWavetable(std::string chord, std::array<double, 25> scale, std::string scaleType)
 {
 	std::vector<double> waveTable = {};
 	Wave wave(waveTable);
@@ -186,15 +178,13 @@ std::vector<double> Input::chordToWavetable(std::string chord, std::array<double
 	std::string romanNumber = getRomanNumber(chord);
 	const std::string* iterator = std::find(ROMAN_NUMBERS, ROMAN_NUMBERS + 7, toUpper(romanNumber));
 	int index = iterator - ROMAN_NUMBERS;
-	int step = SCALE_STEPS[index];
-	if (chord[romanNumber.size()] == 'b')
-	{
-		step -= 1;
-	}
-	if (chord[romanNumber.size()] == '#')
-	{
-		step += 1;
-	}
+	int step;
+	if (scaleType == "major") step = MAJOR_SCALE_STEPS[index];
+	if (scaleType == "minor") step = MINOR_SCALE_STEPS[index];
+
+	if (chord[romanNumber.size()] == 'b') step -= 1;
+	if (chord[romanNumber.size()] == '#') step += 1;
+
 	wave.appendWaves(Wave::createSine(scale[step], duration));
 	if (chord[romanNumber.size()] == 'd' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'd'))
 	{
@@ -210,11 +200,13 @@ std::vector<double> Input::chordToWavetable(std::string chord, std::array<double
 	{
 		wave.addWaves(Wave::createSine(scale[step + 4], duration));
 		wave.addWaves(Wave::createSine(scale[step + 7], duration));
+		std::cout << scale[step] << ' ' << scale[step + 4] << ' ' << scale[step + 7] << std::endl;
 	}
-	else if (!isupper(chord[0]))
+	else if (islower(chord[0]))
 	{
 		wave.addWaves(Wave::createSine(scale[step + 3], duration));
 		wave.addWaves(Wave::createSine(scale[step + 7], duration));
+		std::cout << scale[step] << ' ' << scale[step + 3] << ' ' << scale[step + 7] << std::endl;
 	}
 	for (int i = 0; i < wave.waveTable.size(); i++)
 	{
@@ -223,7 +215,7 @@ std::vector<double> Input::chordToWavetable(std::string chord, std::array<double
 	return wave.waveTable;
 }
 
-Wave Input::inputToWavetableSecondMode(std::string input, std::string key)
+Wave Input::inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType)
 {
 	std::vector<std::string> chordList = getChords(input);
 	std::array<double, 25> scale = createTwoOctaveScale(key);
@@ -232,7 +224,7 @@ Wave Input::inputToWavetableSecondMode(std::string input, std::string key)
 	double duration;
 	for (int i = 0; i < chordList.size(); i++)
 	{
-		wave.appendWaves(chordToWavetable(chordList[i], scale));
+		wave.appendWaves(chordToWavetable(chordList[i], scale, scaleType));
 	}
 	return wave;
 }

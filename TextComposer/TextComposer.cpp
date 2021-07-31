@@ -38,55 +38,62 @@ int main(void);
 int main(void)
 {
     int mode;
-    std::cout << "Choose your mode:     1. Notes        2. Chord Progression Formula" << std::endl;
-    std::cin >> mode;
-
     std::string key;
-    if (mode == 2)
-    {
-        std::cout << "Choose your key: " << std::endl;
-        std::cin >> key;
-    }
-
-    std::cout << "Your score: " << std::endl;
-
+    std::string scaleType;
     std::string input;
-    std::cin >> input;
-
     std::vector<double> waveTable;
-
-    if (mode == 1)
-    {
-        Input inputHandler(input);
-        waveTable = inputHandler.wave.waveTable;
-    }
-    if (mode == 2)
-    {
-        Input inputHandler(input, key);
-        waveTable = inputHandler.wave.waveTable;
-    }
-    AudioOutput output(waveTable);
-    AudioOutput* outputPointer = &output;
-
-
-
     ScopedPaHandler paInit;
-    if (paInit.result() != paNoError) goto error;
+    char keepGoing = 'y';
 
-
-    if (outputPointer->open(Pa_GetDefaultOutputDevice()))
+    while (keepGoing == 'y')
     {
-        std::cout << "Playing" << std::endl;
-        if (outputPointer->start())
+        std::cout << "Choose your mode:     1. Notes        2. Chord Progression Formula" << std::endl;
+        std::cin >> mode;
+
+        if (mode == 2)
         {
-            Pa_Sleep((outputPointer->waveTable.size()) / 44.1);
-            outputPointer->stop();
+            std::cout << "Choose your scale: " << std::endl;
+            std::cin >> key >> scaleType;
         }
 
-        outputPointer->close();
+        std::cout << "Your score: " << std::endl;
+
+        std::cin >> input;
+
+
+        if (mode == 1)
+        {
+            Input inputHandler(input);
+            waveTable = inputHandler.wave.waveTable;
+        }
+        if (mode == 2)
+        {
+            Input inputHandler(input, key, scaleType);
+            waveTable = inputHandler.wave.waveTable;
+        }
+        AudioOutput output(waveTable);
+        AudioOutput* outputPointer = &output;
+
+
+
+        if (paInit.result() != paNoError) goto error;
+
+
+        if (outputPointer->open(Pa_GetDefaultOutputDevice()))
+        {
+            std::cout << "Playing" << std::endl;
+            if (outputPointer->start())
+            {
+                Pa_Sleep((outputPointer->waveTable.size()) / 44.1);
+                outputPointer->stop();
+            }
+
+            outputPointer->close();
+        }
+        std::cout << "Continue? (y/n)" << std::endl;
+        std::cin >> keepGoing;
     }
 
-    printf("Test finished.\n");
     return paNoError;
 
 error:
