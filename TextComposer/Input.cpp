@@ -39,11 +39,11 @@ std::vector<std::string> Input::getNotes(std::string input)
 	}
 }	
 
-double Input::getDuration(std::string note) 
+double Input::getDuration(std::string note, std::string timeSignatureLower, std::string BPM) 
 {
 	int eighthCount = std::count(note.begin(), note.end(), '-');
 	int sixtyfourthCount = std::count(note.begin(), note.end(), '.');
-	return 2.0 * ((double) sixtyfourthCount * 1.0 / 64.0 + (double) eighthCount * 0.125);
+	return std::stod(timeSignatureLower) * 60.0 / std::stod(BPM) * ((double) sixtyfourthCount * 1.0 / 64.0 + (double) eighthCount * 0.125);
 }
 
 double Input::getNoteFreq(std::string name)
@@ -68,7 +68,7 @@ double Input::getNoteFreq(std::string name)
 	return freq;
 }
 
-std::vector<double> Input::inputToWavetableFirstMode(std::string input)
+std::vector<double> Input::inputToWavetableFirstMode(std::string input, std::string timeSignatureLower, std::string BPM)
 {
 	std::vector<std::string> noteList = getNotes(input);
 	std::vector<std::vector<double>> waveTables = {};
@@ -76,7 +76,7 @@ std::vector<double> Input::inputToWavetableFirstMode(std::string input)
 	double duration;
 	for (int i = 0; i < noteList.size(); i++)
 	{
-		duration = getDuration(noteList[i]);
+		duration = getDuration(noteList[i], timeSignatureLower, BPM);
 		if (noteList[i][1] == '#' || noteList[i][1] == 'b')
 		{
 			name = noteList[i].substr(0, 3);
@@ -85,7 +85,7 @@ std::vector<double> Input::inputToWavetableFirstMode(std::string input)
 		{
 			name = noteList[i].substr(0, 2);
 		}
-		std::cout << getNoteFreq(name) << std::endl;
+		//std::cout << getNoteFreq(name) << std::endl;
 		waveTables.push_back(Wave::createSine(getNoteFreq(name), duration));
 	}
 	return Wave::appendWaves(waveTables);
@@ -161,10 +161,10 @@ std::string Input::getRomanNumber(std::string chord)
 	return chord;
 }
 
-std::vector<double> Input::chordToWavetable(std::string chord, std::array<double, 25> scale, std::string scaleType)
+std::vector<double> Input::chordToWavetable(std::string chord, std::array<double, 25> scale, std::string scaleType, std::string timeSignatureLower, std::string BPM)
 {
 	std::vector<std::vector<double>> waveTables = {};
-	double duration = getDuration(chord);
+	double duration = getDuration(chord, timeSignatureLower, BPM);
 	std::string romanNumber = getRomanNumber(chord);
 	const std::string* iterator = std::find(ROMAN_NUMBERS, ROMAN_NUMBERS + 7, toUpper(romanNumber));
 	int index = iterator - ROMAN_NUMBERS;
@@ -190,26 +190,26 @@ std::vector<double> Input::chordToWavetable(std::string chord, std::array<double
 	{
 		waveTables.push_back(Wave::createSine(scale[step + 4], duration));
 		waveTables.push_back(Wave::createSine(scale[step + 7], duration));
-		std::cout << scale[step] << ' ' << scale[step + 4] << ' ' << scale[step + 7] << std::endl;
+		//std::cout << scale[step] << ' ' << scale[step + 4] << ' ' << scale[step + 7] << std::endl;
 	}
 	else if (islower(chord[0]))
 	{
 		waveTables.push_back(Wave::createSine(scale[step + 3], duration));
 		waveTables.push_back(Wave::createSine(scale[step + 7], duration));
-		std::cout << scale[step] << ' ' << scale[step + 3] << ' ' << scale[step + 7] << std::endl;
+		//std::cout << scale[step] << ' ' << scale[step + 3] << ' ' << scale[step + 7] << std::endl;
 	}
 
 	return Wave::addWaves(waveTables);
 }
 
-std::vector<double> Input::inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType)
+std::vector<double> Input::inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType, std::string timeSignatureLower, std::string BPM)
 {
 	std::vector<std::string> chordList = getChords(input);
 	std::array<double, 25> scale = createTwoOctaveScale(key);
 	std::vector<std::vector<double>> waveTables = {};
 	for (int i = 0; i < chordList.size(); i++)
 	{
-		waveTables.push_back(chordToWavetable(chordList[i], scale, scaleType));
+		waveTables.push_back(chordToWavetable(chordList[i], scale, scaleType, timeSignatureLower, BPM));
 	}
 	return Wave::appendWaves(waveTables);
 }

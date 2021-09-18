@@ -41,6 +41,8 @@ int main(void)
     std::string key;
     std::string scaleType;
     std::string input;
+    std::string timeSignatureLower;
+    std::string BPM;
     std::vector<double> waveTable;
     ScopedPaHandler paInit;
     char keepGoing = 'y';
@@ -49,6 +51,10 @@ int main(void)
     {
         std::cout << "Choose your mode:     1. Notes        2. Chord Progression Formula" << std::endl;
         std::cin >> mode;
+        std::cout << "Time signature lower numeral: " << std::endl;
+        std::cin >> timeSignatureLower;
+        std::cout << "Beats per minute: " << std::endl;
+        std::cin >> BPM;
 
         if (mode == 2)
         {
@@ -63,7 +69,7 @@ int main(void)
 
         if (mode == 1)
         {
-            waveTable = Input::inputToWavetableFirstMode(input);
+            waveTable = Input::inputToWavetableFirstMode(input, timeSignatureLower, BPM);
             /*for (int i = 0; i < 300; i++)
             {
                 std::cout << waveTable[i] << std::endl;
@@ -71,7 +77,7 @@ int main(void)
         }
         if (mode == 2)
         {
-            waveTable = Input::inputToWavetableSecondMode(input, key, scaleType);
+            waveTable = Input::inputToWavetableSecondMode(input, key, scaleType, timeSignatureLower, BPM);
         }
         AudioOutput output(waveTable);
         AudioOutput* outputPointer = &output;
