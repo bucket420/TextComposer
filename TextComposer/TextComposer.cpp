@@ -63,13 +63,15 @@ int main(void)
 
         if (mode == 1)
         {
-            Input inputHandler(input);
-            waveTable = inputHandler.wave.waveTable;
+            waveTable = Input::inputToWavetableFirstMode(input);
+            /*for (int i = 0; i < 300; i++)
+            {
+                std::cout << waveTable[i] << std::endl;
+            }*/
         }
         if (mode == 2)
         {
-            Input inputHandler(input, key, scaleType);
-            waveTable = inputHandler.wave.waveTable;
+            waveTable = Input::inputToWavetableSecondMode(input, key, scaleType);
         }
         AudioOutput output(waveTable);
         AudioOutput* outputPointer = &output;

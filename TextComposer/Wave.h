@@ -3,17 +3,9 @@
 #include <string>
 #include <vector>
 
-class Wave
+namespace Wave
 {
-public:
-	std::vector<double> waveTable;
-	int tableSize;
-
-	Wave();
-	Wave(std::vector<double> waveTable);
-
-	static std::vector<double> createSine(double freq, double duration);
-
-	void addWaves(std::vector<double> table2);
-	void appendWaves(std::vector<double> table2);
+	std::vector<double> createSine(double freq, double duration);
+	std::vector<double> addWaves(std::vector<std::vector<double>> tables);
+	std::vector<double> appendWaves(std::vector<std::vector<double>> tables);
 };

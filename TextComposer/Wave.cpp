@@ -5,49 +5,48 @@
 #include "Wave.h"
 #include "Constants.h"
 
-Wave::Wave()
-{
-	waveTable = {};
-	tableSize = 0;
-}
-
-Wave::Wave(std::vector<double> waveTable) {
-	this->waveTable = waveTable;
-	tableSize = waveTable.size();
-}
+using namespace Wave;
 
 std::vector<double> Wave::createSine(double freq, double duration)
 {
-	int phase = 0;
+	double phase = 0.0;
 	int tableSize = duration * SAMPLE_RATE;
 	std::vector<double> sine(tableSize, 0.0);
-	int increment = (&LUT)->size() * freq / SAMPLE_RATE;
+	double increment = (&LUT)->size() * freq / (double)SAMPLE_RATE;
 	for (int i = 0; i < tableSize; i++)
 	{
-		sine[i] = LUT[phase];
+		sine[i] = LUT[(int)phase];
 		phase += increment;
-		if (phase >= (&LUT)->size()) phase -= (&LUT)->size();
+		if (phase >= (&LUT)->size()) phase -= (double)((&LUT)->size());
 	}
 	return sine;
 }
 
-void Wave::appendWaves(std::vector<double> table2)
+std::vector<double> Wave::appendWaves(std::vector<std::vector<double>> tables)
 {
 	//waveTable->insert(this->waveTable->end(), table2.begin(), table2.end());
-
-	for (int i = 0; i < table2.size(); i++)
+	std::vector<double> waveTable{};
+	for (std::vector<double> table : tables)
 	{
-		(&waveTable)->push_back(table2[i]);
+		for (int i = 0; i < table.size(); i++)
+		{
+			(&waveTable)->push_back(table[i]);
+		}
 	}
-	tableSize = (&waveTable)->size();
+	return waveTable;
 }
 
-void Wave::addWaves(std::vector<double> table2)
+std::vector<double> Wave::addWaves(std::vector<std::vector<double>> tables)
 {
-	if ((&waveTable)->size() < table2.size()) (&waveTable)->resize(table2.size(), 0.0);
-	for (int i = 0; i < (&waveTable)->size(); i++)
+	std::vector<double> waveTable{};
+	for (int i = 0; i < (&tables)->size(); i++)
 	{
-		waveTable[i] += table2[i];
+		if ((&waveTable)->size() < tables[i].size()) (&waveTable)->resize(tables[i].size(), 0.0);
+		for (int j = 0; j < (&waveTable)->size(); j++)
+		{
+			waveTable[j] += tables[i][j];
+			if (i == tables.size() - 1) waveTable[j] /= (double)((&tables)->size());
+		}
 	}
-	tableSize = (&waveTable)->size();
+	return waveTable;
 }
