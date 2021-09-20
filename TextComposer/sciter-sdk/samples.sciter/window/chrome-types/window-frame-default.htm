@@ -1,0 +1,23 @@
+<html window-width="50%" window-height="50%">
+    <head>
+        <title>Test</title>
+        <style></style>
+<script|module>
+
+document.on("change","#full-screen", function(evt,checkbox) {
+  Window.this.state = checkbox.value ? Window.WINDOW_FULL_SCREEN : Window.WINDOW_SHOWN;
+});
+
+        </script>
+    </head>
+    <body>
+
+<p>window-frame="default"</p>
+<p>type=Window.FRAME_WINDOW</p>
+
+<p>Initial size: 50% of monitor workspace</p>
+
+<button|checkbox #full-screen>Full screen</button>
+
+    </body>
+</html>

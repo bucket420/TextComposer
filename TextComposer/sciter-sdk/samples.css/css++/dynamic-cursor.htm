@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>Animated cursor</title>
+	    <style type="text/css"> 
+
+    div
+    {
+      border: 1px solid;
+      width:50%;
+      height:50px;
+      padding:10px;
+      text-align:center;
+      vertical-align:middle;
+    }
+ 
+	</style>
+  
+  <script> 
+    
+    document.on("click", "button#set", async function(evt) {
+      var img = await Graphics.Image.load(__DIR__ + "images/cursor.png");
+      document.$("div").style.setCursor(img, 24, 24);
+    });
+
+    document.on("click", "button#reset", function(){
+      document.$("div").style.setCursor(null);
+    });
+
+  </script>
+  
+	</head>
+<body>
+  <button#set>set cursor</button>
+  <button#reset>reset cursor</button>
+  <div id="pngcur">
+    <p>Move mouse here, you should see cursor created from PNG image.</p>
+  </div>
+</body>
+</html>

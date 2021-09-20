@@ -24,10 +24,13 @@
     <ClCompile Include="Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextComposer.cpp">
+    <ClCompile Include="AudioOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AudioOutput.cpp">
+    <ClCompile Include="sciter-win-main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

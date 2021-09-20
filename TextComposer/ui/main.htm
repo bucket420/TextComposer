@@ -1,0 +1,96 @@
+<html>
+<head>
+    <title>TextComposer</title>
+    <style>
+        html {
+            background: gold;
+        }
+        body {
+            vertical-align: middle;
+        }
+        .input {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .body {
+            margin: 10% 10%;
+            padding: 50px 10px;
+            background-color: aqua;
+            position: relative;
+        }
+        .input-wrapper {
+            margin: auto;
+            width: fit-content;
+            position: relative;
+        }
+        button#play {
+            margin: auto;
+            width: 100px;
+            height: 40px;
+        }
+        textarea#score { 
+            width: 400px;
+            height: 100px;
+            overflow-wrap: break-word;
+            word-break: break-all;
+        }
+        input.text {
+            width: 30px;
+        }
+
+    </style>
+    <script type="text/javascript">
+        document.$("button#play").onclick = function() {
+            var mode;
+            if (document.getElementById("mode1").checked) {
+                mode = "1";
+            } else {
+                mode = "2";
+            }
+            var key = document.getElementById("key").value;
+            var scaleType = document.getElementById("scale-type").value;
+            var timeSignatureLower = document.getElementById("time-signature-lower").value;
+            var BPM = document.getElementById("bpm").value;
+            var score = document.getElementById("score").value;
+            const thisWindow = Window.this;
+            thisWindow.frame.output(mode, key, scaleType, score, timeSignatureLower, BPM);
+        }
+    </script>
+</head>
+<body>
+    <div class="body">
+        <div class="input-wrapper">
+            <div class="input" id="mode">
+                Mode:
+                <input type="radio" value="1" id="mode1" checked>
+                <label for="html">Single Notes</label>
+                <input type="radio" value="2">
+                <label for="html">Chord Progression</label>
+            </div>
+            <div class="input">
+                Scale:
+                <input class="text" id="key">
+                <select id="scale-type">
+                    <option value="major">Major</option>
+                    <option value="minor">Minor</option>
+                </select>
+            </div>
+            <div class="input">
+                <label for="time-signature">Time signature: </label>
+                <input class="text" id="time-signature-upper">
+                /
+                <input class="text" id="time-signature-lower">
+            </div>
+            <div class="input">
+                <label for="bpm">BPM: </label>
+                <input class="text" id="bpm">
+            </div>
+            <div class="input">
+                <div for="score">Your score: </div>
+                <textarea id="score"></textarea>
+            </div>
+            <button id="play">Play</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<html>
+
+<head>
+
+  <style>
+
+    body {
+      aspect: Particles; // see function Particles() below
+      background:#F4A460;
+    }
+
+    text.particles-text {
+       color: #fff;
+       width:max-content;
+       height:max-content;
+       font-size:20pt;
+    }
+
+  </style>
+
+  <script>
+
+    function Particles() {
+
+      const particles = [];
+      const particleSize = 6;
+      const maxParticles = 40;
+      const threshold = 100;
+
+      const text = new Graphics.Text("Immediate mode painting demo","particles-text");
+
+      const circle = new Graphics.Path();
+      circle.arc(0, 0, particleSize, 0, 2 * Math.PI);
+      circle.close();
+
+      for (let i = 0; i < maxParticles; i++) {
+        let particle = {
+          x: Math.random() * 800,
+          y: Math.random() * 600,
+          vx: Math.random(),
+          vy: Math.random()
+        }
+        particles.push(particle);
+      }
+
+      function distance(p1,p2) {
+        let dx = p1.x - p2.x;
+        let dy = p1.y - p2.y;
+        return Math.sqrt(dx*dx + dy*dy);
+      }
+     
+      function paint(context) 
+      {
+        let [width,height] = this.state.box("dimension","inner");
+
+        function line(particle, particle2) {
+          context.beginPath();
+          context.moveTo(particle.x, particle.y);
+          context.lineTo(particle2.x, particle2.y);
+          context.stroke();
+        }
+
+        context.fillStyle = '#fff';
+        context.strokeStyle = '#fff';
+
+        for (let i = 0; i < maxParticles; i++) {
+          let particle = particles[i];
+          context.draw(circle, particle);
+          for (let j = 0; j < maxParticles; j++) {
+            if (i != j) {
+              let particle2 = particles[j];
+              let d = distance(particle,particle2);
+              if (d < threshold) {
+                context.lineWidth = (threshold - d) / threshold * 4;
+                line(particle, particle2);
+              }
+            }
+          }
+          particle.x = particle.x + particle.vx;
+          particle.y = particle.y + particle.vy;
+          
+          if (particle.x > width - particleSize) { particle.x = width - particleSize; particle.vx = -particle.vx; }
+          if (particle.x < particleSize) { particle.x = particleSize; particle.vx = -particle.vx; }
+
+          if (particle.y > height - particleSize) { particle.y = height - particleSize; particle.vy = -particle.vy; }
+          if (particle.y < particleSize) { particle.y = particleSize; particle.vy = -particle.vy; }
+
+        }
+
+        // draw text on the middle of canvas:
+        context.pushLayer("content-box","drop-shadow(1px,1px,3px,#000)");
+          context.draw(text, {x: width/2, y: height/2, alignment:5});
+        context.popLayer();
+
+        this.requestPaint(); // request next painting
+      }
+
+      // setup paint handler:
+      this.paintContent = paint; // above background layer but 
+                                 // before native content painting of the element
+    }
+   
+  </script>
+
+</head>
+
+<body>
+  
+</body>
+</html>
