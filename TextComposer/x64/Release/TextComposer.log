@@ -1,6 +1,6 @@
-﻿  main.htm 3193 compressed to 1292 (40%)
+﻿  main.htm 3256 compressed to 1314 (40%)
   -----------------------------
-  compressed size 1388 bytes
+  compressed size 1410 bytes
   AudioOutput.cpp
 D:\OneDrive\Desktop\MusicProject\TextComposer\TextComposer\AudioOutput.cpp(118,38): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
           with
