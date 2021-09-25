@@ -8,13 +8,22 @@
         body {
             vertical-align: middle;
             overflow:hidden;
+            position: relative;
         }
         .input {
             margin-bottom: 20px;
             position: relative;
         }
+        .header {
+            text-align: center;
+            position: relative;
+            height: 5%;
+            top: 20px;
+            font-size: 32px;
+            font-family: "Lucida Console", "Courier New", monospace;
+        }
         .body {
-            margin: 10% 10%;
+            margin: 5% 10% 10% 10%;
             padding: 50px 10px;
             background: linear-gradient(45deg, deepskyblue, chartreuse);
             border: 5px solid;
@@ -28,6 +37,7 @@
         }
         button#play {
             margin: auto;
+            margin-top: 10px;
             width: 100px;
             height: 40px;
         }
@@ -43,12 +53,16 @@
 
     </style>
     <script type="text/javascript">
+        document.$("button#play").onmousedown = function() {
+            document.getElementById("error-message").style.display = "none";
+        }
         document.$("button#play").onclick = function() {
+            var errorMessage = document.getElementById("error-message");
             var mode;
             if (document.getElementById("mode1").checked) {
-                mode = "1";
+                mode = 1;
             } else {
-                mode = "2";
+                mode = 2;
             }
             var key = document.getElementById("key").value;
             var scaleType = document.getElementById("scale-type").value;
@@ -56,11 +70,15 @@
             var BPM = document.getElementById("bpm").value;
             var score = document.getElementById("score").value;
             const thisWindow = Window.this;
-            thisWindow.frame.output(mode, key, scaleType, score, timeSignatureLower, BPM);
+            var output = thisWindow.frame.output(mode, key, scaleType, score, timeSignatureLower, BPM);
+            if (output == 1) { 
+                errorMessage.style.display = "block";
+            }
         }
     </script>
 </head>
 <body>
+    <div class="header">Text Composer</div>
     <div class="body">
         <div class="input-wrapper">
             <div class="input" id="mode">
@@ -91,6 +109,7 @@
             <div class="input">
                 <div for="score">Your score: </div>
                 <textarea id="score"></textarea>
+                <div id="error-message" style="display: none; color: red; position: absolute; top: 118px; z-index: 2">Please check your inputs</div>
             </div>
             <button id="play">Play</button>
         </div>

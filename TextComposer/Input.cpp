@@ -85,10 +85,9 @@ std::vector<double> Input::inputToWavetableFirstMode(std::string input, std::str
 		{
 			name = noteList[i].substr(0, 2);
 		}
-		//std::cout << getNoteFreq(name) << std::endl;
-		waveTables.push_back(Wave::createSine(getNoteFreq(name), duration));
+		waveTables.push_back(Wave::createWave(getNoteFreq(name), duration));
 	}
-	return Wave::appendWaves(waveTables);
+	return Wave::appendWaves(&waveTables);
 }
 
 std::array<double, 25> Input::createTwoOctaveScale(std::string key) 
@@ -175,31 +174,29 @@ std::vector<double> Input::chordToWavetable(std::string chord, std::array<double
 	if (chord[romanNumber.size()] == 'b') step -= 1;
 	if (chord[romanNumber.size()] == '#') step += 1;
 
-	waveTables.push_back(Wave::createSine(scale[step], duration));
+	waveTables.push_back(Wave::createWave(scale[step], duration));
 	if (chord[romanNumber.size()] == 'd' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'd'))
 	{
-		waveTables.push_back(Wave::createSine(scale[step + 3], duration));
-		waveTables.push_back(Wave::createSine(scale[step + 6], duration));
+		waveTables.push_back(Wave::createWave(scale[step + 3], duration));
+		waveTables.push_back(Wave::createWave(scale[step + 6], duration));
 	}
 	else if (chord[romanNumber.size()] == 'a' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'a'))
 	{
-		waveTables.push_back(Wave::createSine(scale[step + 4], duration));
-		waveTables.push_back(Wave::createSine(scale[step + 8], duration));
+		waveTables.push_back(Wave::createWave(scale[step + 4], duration));
+		waveTables.push_back(Wave::createWave(scale[step + 8], duration));
 	}
 	else if (isupper(chord[0]))
 	{
-		waveTables.push_back(Wave::createSine(scale[step + 4], duration));
-		waveTables.push_back(Wave::createSine(scale[step + 7], duration));
-		//std::cout << scale[step] << ' ' << scale[step + 4] << ' ' << scale[step + 7] << std::endl;
+		waveTables.push_back(Wave::createWave(scale[step + 4], duration));
+		waveTables.push_back(Wave::createWave(scale[step + 7], duration));
 	}
 	else if (islower(chord[0]))
 	{
-		waveTables.push_back(Wave::createSine(scale[step + 3], duration));
-		waveTables.push_back(Wave::createSine(scale[step + 7], duration));
-		//std::cout << scale[step] << ' ' << scale[step + 3] << ' ' << scale[step + 7] << std::endl;
+		waveTables.push_back(Wave::createWave(scale[step + 3], duration));
+		waveTables.push_back(Wave::createWave(scale[step + 7], duration));
 	}
 
-	return Wave::addWaves(waveTables);
+	return Wave::addWaves(&waveTables);
 }
 
 std::vector<double> Input::inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType, std::string timeSignatureLower, std::string BPM)
@@ -211,6 +208,6 @@ std::vector<double> Input::inputToWavetableSecondMode(std::string input, std::st
 	{
 		waveTables.push_back(chordToWavetable(chordList[i], scale, scaleType, timeSignatureLower, BPM));
 	}
-	return Wave::appendWaves(waveTables);
+	return Wave::appendWaves(&waveTables);
 }
 

@@ -8,7 +8,7 @@
 class AudioOutput
 {
 public:
-	AudioOutput(std::vector<double> waveTable);
+	AudioOutput(std::vector<double>* waveTable);
 
 private:
 	/*const std::map<std::string, float> NOTE_TO_FREQUENCIES;
@@ -40,7 +40,7 @@ private:
 
 
 public:
-	std::vector<double> waveTable;
+	std::vector<double>* waveTable;
 
 	bool open(PaDeviceIndex index);
 	bool close();

@@ -10,10 +10,10 @@
 
 #define M_PI  (3.14159265)
 
-AudioOutput::AudioOutput(std::vector<double> waveTable) : left_phase(0), right_phase(0)
+AudioOutput::AudioOutput(std::vector<double>* waveTable) : left_phase(0), right_phase(0)
 {
     this->waveTable = waveTable;
-    sprintf_s(message, "No Message");
+    //sprintf_s(message, "No Message");
 };
 
 bool AudioOutput::open(PaDeviceIndex index)
@@ -26,10 +26,10 @@ bool AudioOutput::open(PaDeviceIndex index)
     }
 
     const PaDeviceInfo* pInfo = Pa_GetDeviceInfo(index);
-    if (pInfo != 0)
-    {
-        printf("Output device name: '%s'\r", pInfo->name);
-    }
+    //if (pInfo != 0)
+    //{
+    //    printf("Output device name: '%s'\r", pInfo->name);
+    //}
 
     outputParameters.channelCount = 2;       /* stereo output */
     outputParameters.sampleFormat = paFloat32; /* 32 bit floating point output */
@@ -115,11 +115,11 @@ int AudioOutput::paCallbackMethod(const void* inputBuffer, void* outputBuffer,
 
     for (i = 0; i < framesPerBuffer; i++)
     {
-        *out++ = waveTable[left_phase];  /* left */
-        *out++ = waveTable[right_phase];  /* right */
+        *out++ = (*waveTable)[left_phase];  /* left */
+        *out++ = (*waveTable)[right_phase];  /* right */
         left_phase += increment;
         right_phase += increment;
-        if (left_phase == waveTable.size()) return paComplete;
+        if (left_phase == waveTable->size()) return paComplete;
     }
 
     return paContinue;
@@ -147,7 +147,7 @@ int AudioOutput::paCallback(const void* inputBuffer, void* outputBuffer,
 
 void AudioOutput::paStreamFinishedMethod()
 {
-    printf("Stream Completed: %s\n", message);
+    //printf("Stream Completed: %s\n", message);
 }
 
 /*
