@@ -4,7 +4,7 @@
 
 The output sound does not come from prerecorded audio files, but is generated directly by the soundcard using wavetable synthesis, with the help of [PortAudio library](http://portaudio.com/). I tried to replicate the sound of a guitar using Fourier analysis, but it's still a work in progress. The GUI is made with HTML, CSS, and Javascript using [Sciter.JS](https://github.com/c-smile/sciter-js-sdk).
 
-![ui_preview](https://user-images.githubusercontent.com/72154050/141652112-01f7595e-d49a-4559-9815-01c53a7559c5.png)
+![uipreview](https://user-images.githubusercontent.com/72154050/144744396-1febc1cb-2261-4258-b712-5a2df64f9e93.png)
 ## Installation
 You can download the compiled application [here](https://github.com/bucket420/TextComposer/releases) (the *.rar* file).  
 
