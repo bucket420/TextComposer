@@ -101,7 +101,7 @@ public:
         ScopedPaHandler paInit;
         if (paInit.result() != paNoError) return;
         std::vector<double> waveTable = getWavetable(mode, key, scaleType, input, timeSignatureLower, BPM);
-        double duration = waveTable.size() / SAMPLE_RATE;
+        double duration = (double)waveTable.size() / (double)SAMPLE_RATE;
 
         if (waveTable.empty())
         {
@@ -176,7 +176,7 @@ public:
 
     double getDuration(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
     {
-        return getWavetable(mode, key, scaleType, input, timeSignatureLower, BPM).size() / SAMPLE_RATE;
+        return (double)(getWavetable(mode, key, scaleType, input, timeSignatureLower, BPM).size()) / (double)SAMPLE_RATE;
     }
 };
 
