@@ -1,17 +1,16 @@
 #include "Wave.h"
 #include "Input.h"
-#include "Constants.h"
+#include "Global.h"
 #include "portaudio.h"
-#include "AudioOutput.h"
 #include "sciter-x.h"
 #include "sciter-x-window.hpp"
-#include <stdio.h>
-#include <iostream>
 #include <math.h>
 #include <map>
 #include <string>
 #include <vector>
 #include <functional>
+#include <chrono>
+#include <thread>
 
 #define FRAMES_PER_BUFFER  (64)
 
@@ -40,52 +39,144 @@ class frame : public sciter::window {
 public:
     frame() : window(SW_TITLEBAR | SW_RESIZEABLE | SW_CONTROLS | SW_MAIN | SW_ENABLE_DEBUG) {}
 
+    /*AudioOutput output;*/
+    std::vector<double> getWavetable(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
+    {
+        std::vector<double> waveTable;
+        switch (mode)
+        {
+        case 1:
+            waveTable = Input::inputToWavetableFirstMode(input, timeSignatureLower, BPM);
+            break;
+        case 2:
+            waveTable = Input::inputToWavetableSecondMode(input, key, scaleType, timeSignatureLower, BPM);
+            break;
+        }
+        return waveTable;
+    }
+
+    struct Data
+    {
+        std::vector<double>* waveTable;
+        int phase = 0;
+    };
+
+    PaStream* stream;
+    bool stopPlayback;
+    static int paCallback(const void* inputBuffer, void* outputBuffer,
+        unsigned long framesPerBuffer,
+        const PaStreamCallbackTimeInfo* timeInfo,
+        PaStreamCallbackFlags statusFlags,
+        void* userData)
+    {
+        float* out = (float*)outputBuffer;
+        unsigned long i;
+
+        (void)timeInfo; /* Prevent unused variable warnings. */
+        (void)statusFlags;
+        (void)inputBuffer;
+
+        Data* data = (Data*) userData;
+        double duration = framesPerBuffer / SAMPLE_RATE;
+        int increment = 1;
+
+        for (i = 0; i < framesPerBuffer; i++)
+        {
+            *out++ = (*(data->waveTable))[data->phase];  /* left */
+            *out++ = (*(data->waveTable))[data->phase];  /* right */
+            data->phase += increment;
+        }
+
+        return paContinue;
+
+    }
+
+    void start(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
+    {
+        if (Pa_IsStreamActive(stream) == 1)
+        {
+            return;
+        }
+
+        ScopedPaHandler paInit;
+        if (paInit.result() != paNoError) return;
+        std::vector<double> waveTable = getWavetable(mode, key, scaleType, input, timeSignatureLower, BPM);
+        double duration = waveTable.size() / SAMPLE_RATE;
+
+        if (waveTable.empty())
+        {
+            return;
+        }
+
+        Data data;
+        data.waveTable = &waveTable;
+
+        int err = Pa_OpenDefaultStream(&stream,
+            0,          /* no input channels */
+            2,          /* stereo output */
+            paFloat32,  /* 32 bit floating point output */
+            SAMPLE_RATE,
+            512,        /* frames per buffer */
+            paCallback,
+            &data);
+
+        if (err != paNoError)
+        {
+            Pa_CloseStream(stream);
+            return;
+        }
+
+        err = Pa_StartStream(stream);
+
+        if (err != paNoError)
+        {
+            Pa_StopStream(stream);
+            Pa_CloseStream(stream);
+            return;
+        }
+        stopPlayback = false;
+        std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+        while (!stopPlayback)
+        {
+            if (std::chrono::steady_clock::now() - start > std::chrono::milliseconds((int)(duration * 1000)))
+            {
+                break;
+            }
+        }
+        if (stream != 0)
+        {
+            Pa_StopStream(stream);
+            Pa_CloseStream(stream);
+        }
+
+
+        return;
+    }
+
     // passport - lists native functions and properties exposed to script:
     SOM_PASSPORT_BEGIN(frame)
         SOM_FUNCS(
-            SOM_FUNC(output),
+            SOM_FUNC(stop),
+            SOM_FUNC(play),
+            SOM_FUNC(getDuration)
         )
         SOM_PASSPORT_END
 
-    // function expsed to script:
-    int output(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
+    // function exposed to script:
+    void play(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
     {
-        std::vector<double> waveTable;
-        ScopedPaHandler paInit;
+        std::thread t1(&frame::start, this, mode, key, scaleType, input, timeSignatureLower, BPM);
+        t1.detach();
+    }
 
-        switch (mode)
-        {
-            case 1:
-                waveTable = Input::inputToWavetableFirstMode(input, timeSignatureLower, BPM);
-                break;
-            case 2:
-                waveTable = Input::inputToWavetableSecondMode(input, key, scaleType, timeSignatureLower, BPM);
-                break;
-        }
-        if (waveTable.empty())
-        {
-            return 1;
-        }
-        AudioOutput output(&waveTable);
+    void stop()
+    {
+        stopPlayback = true;
+    }
 
-        if (paInit.result() != paNoError) goto error;
-
-        if ((&output)->open(Pa_GetDefaultOutputDevice()))
-        {
-            if ((&output)->start())
-            {
-                Pa_Sleep(((&waveTable)->size()) / 44.1);
-                (&output)->stop();
-            }
-
-            (&output)->close();
-        }
-
-
-    return paNoError;
-
-    error:
-        return 1;
+    double getDuration(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
+    {
+        return getWavetable(mode, key, scaleType, input, timeSignatureLower, BPM).size() / SAMPLE_RATE;
     }
 };
 

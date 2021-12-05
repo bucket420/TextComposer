@@ -41,6 +41,12 @@
             width: 100px;
             height: 40px;
         }
+        button#stop {
+            margin: auto;
+            margin-top: 10px;
+            width: 100px;
+            height: 40px;
+        }
         textarea#score { 
             width: 400px;
             height: 100px;
@@ -70,10 +76,18 @@
             var BPM = document.getElementById("bpm").value;
             var score = document.getElementById("score").value;
             const thisWindow = Window.this;
-            var output = thisWindow.frame.output(mode, key, scaleType, score, timeSignatureLower, BPM);
-            if (output == 1) { 
+            var duration = thisWindow.frame.getDuration(mode, key, scaleType, score, timeSignatureLower, BPM) * 1000;
+            thisWindow.frame.play(mode, key, scaleType, score, timeSignatureLower, BPM);
+            if (duration == 0) { 
                 errorMessage.style.display = "block";
             }
+            //thisWindow.frame.stop();
+            //setTimeout(function(){ thisWindow.frame.stop(); }, 1000);
+            //self.timer(1s, function(){ thisWindow.frame.stop(); });
+        }
+        document.$("button#stop").onclick = function() {
+            const thisWindow = Window.this;
+            var output = thisWindow.frame.stop();
         }
     </script>
 </head>
@@ -112,6 +126,7 @@
                 <div id="error-message" style="display: none; color: red; position: absolute; top: 118px; z-index: 2">Please check your inputs</div>
             </div>
             <button id="play">Play</button>
+            <button id="stop">Stop</button>
         </div>
     </div>
 </body>

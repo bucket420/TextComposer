@@ -3,19 +3,21 @@
 #include <vector>
 #include <iostream>
 #include "Wave.h"
-#include "Constants.h"
+#include "Global.h"
+
 
 using namespace Wave;
 
 std::vector<double> Wave::createWave(double freq, double duration)
 {
+	if (freq == 0) return {};
 	double phase = 0.0;
 	int tableSize = duration * SAMPLE_RATE;
 	std::vector<double> wave(tableSize, 0.0);
 	double increment = (&LUT)->size() * freq / (double)SAMPLE_RATE;
 	for (int i = 0; i < tableSize; i++)
 	{
-		wave[i] = LUT[(int)phase];
+		wave[i] = LUT[(int)phase] * pow(2.71828182845904523536, -(double)i * 2 / 44100.0);
 		phase += increment;
 		if (phase >= (&LUT)->size()) phase -= (double)((&LUT)->size());
 	}

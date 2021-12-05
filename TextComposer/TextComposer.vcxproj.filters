@@ -21,10 +21,7 @@
     <ClCompile Include="Wave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Constants.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioOutput.cpp">
+    <ClCompile Include="Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sciter-win-main.cpp">
@@ -41,10 +38,7 @@
     <ClInclude Include="Wave.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioOutput.h">
+    <ClInclude Include="Global.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

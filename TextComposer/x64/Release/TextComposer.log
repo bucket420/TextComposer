@@ -1,0 +1,25 @@
+﻿  main.htm 4750 compressed to 1814 (38%)
+  -----------------------------
+  compressed size 1910 bytes
+  resources not changed
+  Input.cpp
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(44,18): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(45,23): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(55,12): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(176,12): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  Generating code
+  2 of 794 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  TextComposer.vcxproj -> D:\OneDrive\Desktop\MusicProjects\TextComposer\x64\Release\TextComposer.exe
+          1 file(s) copied.
+  D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\inspector.exe
+  D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\scapp.exe
+  D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\sciter-sqlite.dll
+  D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\sciter-sqlite.lib
+  D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\sciter.dll
+  D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\sciter.lib
+  D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\test.htm
+  D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\usciter.exe
+          8 file(s) copied.

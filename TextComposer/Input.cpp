@@ -4,7 +4,7 @@
 #include <math.h>
 #include <string>
 #include <iostream>
-#include "Constants.h"
+#include "Global.h"
 #include "Input.h"
 #include "Wave.h"
 
@@ -27,7 +27,7 @@ std::vector<std::string> Input::getNotes(std::string input)
 {
 	std::vector<int> noteIndexes = getNoteIndexes(input);
 	std::vector<std::string> notes(noteIndexes.size(), "");
-
+	if (noteIndexes.empty()) return notes;
 	for (int i = 0; i < noteIndexes.size(); i++)
 	{
 		if (i == noteIndexes.size() - 1) 
@@ -43,6 +43,7 @@ double Input::getDuration(std::string note, std::string timeSignatureLower, std:
 {
 	int eighthCount = std::count(note.begin(), note.end(), '-');
 	int sixtyfourthCount = std::count(note.begin(), note.end(), '.');
+	if (eighthCount == 0 && sixtyfourthCount == 0) return 0.0;
 	return std::stod(timeSignatureLower) * 60.0 / std::stod(BPM) * ((double) sixtyfourthCount * 1.0 / 64.0 + (double) eighthCount * 0.125);
 }
 
@@ -71,12 +72,14 @@ double Input::getNoteFreq(std::string name)
 std::vector<double> Input::inputToWavetableFirstMode(std::string input, std::string timeSignatureLower, std::string BPM)
 {
 	std::vector<std::string> noteList = getNotes(input);
+	if (noteList.empty()) return {};
 	std::vector<std::vector<double>> waveTables = {};
 	std::string name;
 	double duration;
 	for (int i = 0; i < noteList.size(); i++)
 	{
 		duration = getDuration(noteList[i], timeSignatureLower, BPM);
+		if (duration == 0) return {};
 		if (noteList[i][1] == '#' || noteList[i][1] == 'b')
 		{
 			name = noteList[i].substr(0, 3);
@@ -92,8 +95,10 @@ std::vector<double> Input::inputToWavetableFirstMode(std::string input, std::str
 
 std::array<double, 25> Input::createTwoOctaveScale(std::string key) 
 {
+	if (std::find(OCTAVE, OCTAVE + 7, key[0]) == std::end(OCTAVE)) return {};
 	std::array<double, 25> twoOctaveScale;
 	double firstNote = getNoteFreq(key + '4') * pow(2.0, -1.0 / 12.0);
+	if (key.size() > 2 || ((key.size() == 2) && key[1] != '#' && key[1] != 'b') || key.size() == 0) return {};
 	if (key[1] == '#')
 	{
 		firstNote *= pow(2.0, 1.0 / 12.0);
@@ -129,17 +134,17 @@ std::vector<int> Input::getChordIndexes(std::string input)
 
 std::vector<std::string> Input::getChords(std::string input)
 {
-	std::vector<int> noteIndexes = getChordIndexes(input);
-	std::vector<std::string> notes(noteIndexes.size(), "");
-
-	for (int i = 0; i < noteIndexes.size(); i++)
+	std::vector<int> chordIndexes = getChordIndexes(input);
+	std::vector<std::string> chords(chordIndexes.size(), "");
+	if (chordIndexes.empty()) return chords;
+	for (int i = 0; i < chordIndexes.size(); i++)
 	{
-		if (i == noteIndexes.size() - 1)
+		if (i == chordIndexes.size() - 1)
 		{
-			notes[i] = input.substr(noteIndexes[i]);
-			return notes;
+			chords[i] = input.substr(chordIndexes[i]);
+			return chords;
 		}
-		notes[i] = input.substr(noteIndexes[i], (long long)noteIndexes[i + 1] - noteIndexes[i]);
+		chords[i] = input.substr(chordIndexes[i], (long long)chordIndexes[i + 1] - chordIndexes[i]);
 	}
 }
 
@@ -154,6 +159,7 @@ std::string Input::getRomanNumber(std::string chord)
 	char lastChar = chord[chord.size() - 1];
 	while (lastChar != 'V' && lastChar != 'I' && lastChar != 'v' && lastChar != 'i')
 	{
+		if (chord.size() == 0) return chord;
 		chord = chord.substr(0, chord.size() - 1);
 		lastChar = chord[chord.size() - 1];
 	}
@@ -166,6 +172,7 @@ std::vector<double> Input::chordToWavetable(std::string chord, std::array<double
 	double duration = getDuration(chord, timeSignatureLower, BPM);
 	std::string romanNumber = getRomanNumber(chord);
 	const std::string* iterator = std::find(ROMAN_NUMBERS, ROMAN_NUMBERS + 7, toUpper(romanNumber));
+	if (iterator == std::end(ROMAN_NUMBERS) || duration == 0 || romanNumber.empty()) return {};
 	int index = iterator - ROMAN_NUMBERS;
 	int step;
 	if (scaleType == "major") step = MAJOR_SCALE_STEPS[index];
@@ -203,6 +210,7 @@ std::vector<double> Input::inputToWavetableSecondMode(std::string input, std::st
 {
 	std::vector<std::string> chordList = getChords(input);
 	std::array<double, 25> scale = createTwoOctaveScale(key);
+	if (chordList.empty() || scale.empty()) return {};
 	std::vector<std::vector<double>> waveTables = {};
 	for (int i = 0; i < chordList.size(); i++)
 	{
