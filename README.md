@@ -2,7 +2,7 @@
 ## Description
 **TextComposer** is an application that plays music based on your input text. Written mainly in C++, it allows you to quickly test musical ideas with a simple GUI and syntax. It's especially useful when you want to experiment with new chord progressions.
 
-The output sound does not come from prerecorded audio files, but is generated directly by the soundcard using wavetable synthesis, with the help of [PortAudio library](http://portaudio.com/). I tried to replicate the sound of a guitar using Fourier analysis, but it's still a work in progress. The GUI is made with HTML, CSS, and Javascript using [Sciter.JS](https://github.com/c-smile/sciter-js-sdk).
+The output sound does not come from prerecorded audio files, but is generated directly by the soundcard using wavetable synthesis with the help of [the PortAudio library](http://portaudio.com/). I tried to replicate the sound of a guitar using Fourier analysis, but it's still a work in progress. The GUI is made with HTML, CSS, and Javascript using [Sciter.JS](https://github.com/c-smile/sciter-js-sdk).
 
 ![uipreview](https://user-images.githubusercontent.com/72154050/144745099-89a6cc47-03b8-40b6-93eb-cd012c3d2237.png)
 ## Installation
@@ -19,6 +19,6 @@ There are currently two modes available:
 2. Chord Progression Formula:
 	- For this mode you'd choose a scale and use Roman numerals - from one to seven - to represent chords. Upper case letters indicate major chords, while lowercase letters signify minor chords. '**b**' and '**#**' imply flat and sharp, respectively. Add '**d**' and '**a**' at the end for diminished and augmented chords. Currently only triads and major/minor scales are supported. E.g., '**iiid**', '**IV**', '**I#a**', '**IIb**', '**iv**'.
 	- The duration syntax is the same as the first mode.
-	- E.g., **E Major I--V--vi--IV--**, **A Minor i----VI----III----VII----** .
+	- E.g., **E Major: I--V--vi--IV--**, **A Minor: i----VI----III----VII----** .
 	
 The real duration (in seconds) will be calculated based on your inputs in '**Time signature**' and '**BPM**'.
