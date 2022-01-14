@@ -3,20 +3,20 @@
   compressed size 1910 bytes
   resources not changed
   main.cpp
-D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\main.cpp(85,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\main.cpp(83,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=double
           ]
-D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\main.cpp(86,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\main.cpp(84,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=double
           ]
   Generating code
-  2 of 794 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  0 of 775 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TextComposer.vcxproj -> D:\OneDrive\Desktop\MusicProjects\TextComposer\x64\Release\TextComposer.exe
           1 file(s) copied.

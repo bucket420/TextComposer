@@ -4,7 +4,6 @@
 #include <math.h>
 #include <string>
 #include <iostream>
-#include "Global.h"
 #include "Input.h"
 #include "Wave.h"
 
@@ -51,29 +50,30 @@ double Input::getNoteFreq(std::string name)
 {
 	char letter = name[0];
 	int octaveNumber = name[name.length() - 1] - '0';
-	const char* iterator = std::find(OCTAVE, OCTAVE + 7, letter);
-	int index = iterator - OCTAVE;
+	const char* iterator = std::find(Wave::OCTAVE, Wave::OCTAVE + 7, letter);
+	int index = iterator - Wave::OCTAVE;
 	double freq = 0;
 	if (name.length() == 2)
 	{
-		freq = FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber);
+		freq = Wave::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber);
 	}
 	if (name[1] == '#')
 	{
-		freq = FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber + 1.0/12.0);
+		freq = Wave::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber + 1.0/12.0);
 	}
 	if (name[1] == 'b')
 	{
-		freq = FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber - 1.0/12.0);
+		freq = Wave::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber - 1.0/12.0);
 	}
 	return freq;
 }
 
-std::vector<double> Input::inputToWavetableFirstMode(std::string input, std::string timeSignatureLower, std::string BPM)
+Wave Input::inputToWavetableFirstMode(std::string input, std::string timeSignatureLower, std::string BPM)
 {
 	std::vector<std::string> noteList = getNotes(input);
 	if (noteList.empty()) return {};
-	std::vector<std::vector<double>> waveTables = {};
+	Wave wave;
+	Wave appendedWave;
 	std::string name;
 	double duration;
 	for (int i = 0; i < noteList.size(); i++)
@@ -88,14 +88,15 @@ std::vector<double> Input::inputToWavetableFirstMode(std::string input, std::str
 		{
 			name = noteList[i].substr(0, 2);
 		}
-		waveTables.push_back(Wave::createWave(getNoteFreq(name), duration));
+		(&appendedWave)->setWaveTable(getNoteFreq(name), duration);
+		(&wave)->append(&appendedWave);
 	}
-	return Wave::appendWaves(&waveTables);
+	return wave;
 }
 
 std::array<double, 25> Input::createTwoOctaveScale(std::string key) 
 {
-	if (std::find(OCTAVE, OCTAVE + 7, key[0]) == std::end(OCTAVE)) return {};
+	if (std::find(Wave::OCTAVE, Wave::OCTAVE + 7, key[0]) == std::end(Wave::OCTAVE)) return {};
 	std::array<double, 25> twoOctaveScale;
 	double firstNote = getNoteFreq(key + '4') * pow(2.0, -1.0 / 12.0);
 	if (key.size() > 2 || ((key.size() == 2) && key[1] != '#' && key[1] != 'b') || key.size() == 0) return {};
@@ -168,54 +169,65 @@ std::string Input::getRomanNumber(std::string chord)
 
 std::vector<double> Input::chordToWavetable(std::string chord, std::array<double, 25> scale, std::string scaleType, std::string timeSignatureLower, std::string BPM)
 {
-	std::vector<std::vector<double>> waveTables = {};
 	double duration = getDuration(chord, timeSignatureLower, BPM);
 	std::string romanNumber = getRomanNumber(chord);
-	const std::string* iterator = std::find(ROMAN_NUMBERS, ROMAN_NUMBERS + 7, toUpper(romanNumber));
-	if (iterator == std::end(ROMAN_NUMBERS) || duration == 0 || romanNumber.empty()) return {};
-	int index = iterator - ROMAN_NUMBERS;
+	const std::string* iterator = std::find(Wave::ROMAN_NUMBERS, Wave::ROMAN_NUMBERS + 7, toUpper(romanNumber));
+	if (iterator == std::end(Wave::ROMAN_NUMBERS) || duration == 0 || romanNumber.empty()) return {};
+	int index = iterator - Wave::ROMAN_NUMBERS;
 	int step;
-	if (scaleType == "major") step = MAJOR_SCALE_STEPS[index];
-	if (scaleType == "minor") step = MINOR_SCALE_STEPS[index];
+	if (scaleType == "major") step = Wave::MAJOR_SCALE_STEPS[index];
+	if (scaleType == "minor") step = Wave::MINOR_SCALE_STEPS[index];
 
 	if (chord[romanNumber.size()] == 'b') step -= 1;
 	if (chord[romanNumber.size()] == '#') step += 1;
 
-	waveTables.push_back(Wave::createWave(scale[step], duration));
+	Wave wave(scale[step], duration);
+	Wave secondNote;
+	Wave thirdNote;
 	if (chord[romanNumber.size()] == 'd' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'd'))
 	{
-		waveTables.push_back(Wave::createWave(scale[step + 3], duration));
-		waveTables.push_back(Wave::createWave(scale[step + 6], duration));
+		(&secondNote)->setWaveTable(scale[step + 3], duration);
+		(&thirdNote)->setWaveTable(scale[step + 6], duration);
+		(&wave)->add(&secondNote);
+		(&wave)->add(&thirdNote);
 	}
 	else if (chord[romanNumber.size()] == 'a' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'a'))
 	{
-		waveTables.push_back(Wave::createWave(scale[step + 4], duration));
-		waveTables.push_back(Wave::createWave(scale[step + 8], duration));
+		(&secondNote)->setWaveTable(scale[step + 4], duration);
+		(&thirdNote)->setWaveTable(scale[step + 8], duration);
+		(&wave)->add(&secondNote);
+		(&wave)->add(&thirdNote);
 	}
 	else if (isupper(chord[0]))
 	{
-		waveTables.push_back(Wave::createWave(scale[step + 4], duration));
-		waveTables.push_back(Wave::createWave(scale[step + 7], duration));
+		(&secondNote)->setWaveTable(scale[step + 4], duration);
+		(&thirdNote)->setWaveTable(scale[step + 7], duration);
+		(&wave)->add(&secondNote);
+		(&wave)->add(&thirdNote);
 	}
 	else if (islower(chord[0]))
 	{
-		waveTables.push_back(Wave::createWave(scale[step + 3], duration));
-		waveTables.push_back(Wave::createWave(scale[step + 7], duration));
+		(&secondNote)->setWaveTable(scale[step + 3], duration);
+		(&thirdNote)->setWaveTable(scale[step + 7], duration);
+		(&wave)->add(&secondNote);
+		(&wave)->add(&thirdNote);
 	}
-
-	return Wave::addWaves(&waveTables);
+	(&wave)->normalize();
+	return (&wave)->waveTable;
 }
 
-std::vector<double> Input::inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType, std::string timeSignatureLower, std::string BPM)
+Wave Input::inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType, std::string timeSignatureLower, std::string BPM)
 {
 	std::vector<std::string> chordList = getChords(input);
 	std::array<double, 25> scale = createTwoOctaveScale(key);
 	if (chordList.empty() || scale.empty()) return {};
-	std::vector<std::vector<double>> waveTables = {};
+	Wave wave;
+	Wave chord;
 	for (int i = 0; i < chordList.size(); i++)
 	{
-		waveTables.push_back(chordToWavetable(chordList[i], scale, scaleType, timeSignatureLower, BPM));
+		(&chord)->setWaveTable(chordToWavetable(chordList[i], scale, scaleType, timeSignatureLower, BPM));
+		(&wave)->append(&chord);
 	}
-	return Wave::appendWaves(&waveTables);
+	return wave;
 }
 

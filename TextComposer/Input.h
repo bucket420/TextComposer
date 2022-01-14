@@ -13,11 +13,11 @@ namespace Input
 	std::vector<int> getNoteIndexes(std::string input);
 	std::vector<std::string> getNotes(std::string input);
 	double getNoteFreq(std::string name);
-	std::vector<double> inputToWavetableFirstMode(std::string input, std::string timeSignatureLower, std::string BPM);
+	Wave inputToWavetableFirstMode(std::string input, std::string timeSignatureLower, std::string BPM);
 
 	// Second mode:
 	std::array<double, 25> createTwoOctaveScale(std::string key);
-	std::vector<double> inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType, std::string timeSignatureLower, std::string BPM);
+	Wave inputToWavetableSecondMode(std::string input, std::string key, std::string scaleType, std::string timeSignatureLower, std::string BPM);
 	std::vector<int> getChordIndexes(std::string input);
 	std::vector<std::string> getChords(std::string input);
 	std::vector<double> chordToWavetable(std::string chord, std::array<double, 25> scale, std::string scaleType, std::string timeSignatureLower, std::string BPM);

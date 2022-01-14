@@ -21,9 +21,6 @@
     <ClCompile Include="Wave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Global.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sciter-win-main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,9 +33,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Wave.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Global.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
