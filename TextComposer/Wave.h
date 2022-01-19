@@ -8,7 +8,7 @@ class Wave
 public:
 	Wave();
 	Wave(double freq, double duration);
-	Wave(std::vector<double> waveTable);
+	Wave(std::vector<double>* waveTable);
 
 	std::vector<double> waveTable;
 	
@@ -17,6 +17,8 @@ public:
 	void normalize();
 	void setWaveTable(double freq, double duration);
 	void setWaveTable(std::vector<double> waveTable);
+	std::vector<double>* getWaveTable();
+	double getDuration();
 
 	static std::vector<double> addWaveTables(std::vector<std::vector<double>>* tables);
 	static std::vector<double> appendWaveTables(std::vector<std::vector<double>>* tables);

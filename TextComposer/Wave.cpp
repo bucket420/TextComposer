@@ -24,9 +24,19 @@ Wave::Wave(double freq, double duration)
 	waveTable = createWaveTable(freq, duration);
 }
 
-Wave::Wave(std::vector<double> waveTable)
+Wave::Wave(std::vector<double>* waveTable)
 {
-	(this->waveTable) = waveTable;
+	(this->waveTable) = *waveTable;
+}
+
+std::vector<double>* Wave::getWaveTable()
+{
+	return &waveTable;
+}
+
+double Wave::getDuration()
+{
+	return (double)(&waveTable)->size() / (double)SAMPLE_RATE;
 }
 
 void Wave::setWaveTable(double freq, double duration)
@@ -61,9 +71,9 @@ void Wave::append(Wave* wave)
 	{
 		return;
 	}
-	for (int i = 0; i < wave->waveTable.size(); i++)
+	for (int i = 0; i < (&wave->waveTable)->size(); i++)
 	{
-		this->waveTable.push_back((wave->waveTable)[i]);
+		(&this->waveTable)->push_back((wave->waveTable)[i]);
 	}
 }
 
@@ -73,7 +83,7 @@ void Wave::add(Wave* wave)
 	{
 		return;
 	}
-	if (this->waveTable.size() < wave->waveTable.size()) this->waveTable.resize(wave->waveTable.size(), 0.0);
+	if ((&this->waveTable)->size() < (&wave->waveTable)->size()) (&this->waveTable)->resize(wave->waveTable.size(), 0.0);
 	for (int i = 0; i < this->waveTable.size(); i++)
 	{
 		(this->waveTable)[i] += (wave->waveTable)[i];
@@ -119,7 +129,7 @@ std::vector<double> Wave::addWaveTables(std::vector<std::vector<double>>* tables
 std::vector<double> Wave::createSineLUT(int size)
 {
 	std::vector<double> sineLUT;
-	sineLUT.assign(size, 0.0);
+	(&sineLUT)->assign(size, 0.0);
 	for (int i = 0; i < size; i++)
 	{
 		sineLUT[i] = (double)sin((double)i * M_PI * 2.0 / (double)size);
@@ -130,7 +140,7 @@ std::vector<double> Wave::createSineLUT(int size)
 std::vector<double> Wave::createGuitarLUT(int size)
 {
 	std::vector<double> guitarLUT;
-	guitarLUT.assign(size, 0.0);
+	(&guitarLUT)->assign(size, 0.0);
 	for (int i = 0; i < size; i++)
 	{
 		guitarLUT[i] = 0.065 * (double)sin((double)i * M_PI * 2.0 / (double)size)
@@ -141,7 +151,7 @@ std::vector<double> Wave::createGuitarLUT(int size)
 			+ 0.003 * (double)sin((double)i * M_PI * 14.0 / (double)size)
 			+ 0.00076 * (double)sin((double)i * M_PI * 16.0 / (double)size);
 	}
-	double max = *max_element(guitarLUT.begin(), guitarLUT.end());
+	double max = *max_element((&guitarLUT)->begin(), (&guitarLUT)->end());
 	for (int i = 0; i < size; i++)
 	{
 		guitarLUT[i] /= max;

@@ -2,6 +2,12 @@
   -----------------------------
   compressed size 1910 bytes
   resources not changed
+  Input.cpp
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(43,18): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(44,23): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(54,12): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(176,12): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  Note.cpp
   main.cpp
 D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\main.cpp(83,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
           with
@@ -13,10 +19,13 @@ D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\main.cpp(84,54): war
           [
               _Ty=double
           ]
+  Wave.cpp
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Wave.cpp(56,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Generating code
-  0 of 775 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(150): warning C4715: 'Input::getChords': not all control paths return a value
+D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Input.cpp(39): warning C4715: 'Input::getNotes': not all control paths return a value
+  All 775 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   TextComposer.vcxproj -> D:\OneDrive\Desktop\MusicProjects\TextComposer\x64\Release\TextComposer.exe
           1 file(s) copied.

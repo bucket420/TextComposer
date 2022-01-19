@@ -149,12 +149,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Note.cpp" />
     <ClCompile Include="sciter-win-main.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Chord.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Chord.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Note.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

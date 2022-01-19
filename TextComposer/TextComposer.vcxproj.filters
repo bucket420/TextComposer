@@ -27,12 +27,24 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Note.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Wave.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Note.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chord.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
