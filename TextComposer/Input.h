@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-#include <string>
 #include <array>
 #include "Wave.h"
 

@@ -1,12 +1,9 @@
 #pragma once
 #include <math.h>
-#include <vector>
-#include <iostream>
+#include <algorithm>
 #include "Wave.h"
-#include "Global.h"
 
-
-using namespace Wave;
+#define M_PI  (3.14159265)
 
 std::vector<double> Wave::createWave(double freq, double duration)
 {
@@ -60,3 +57,38 @@ std::vector<double> Wave::addWaves(std::vector<std::vector<double>> *tables)
 	}
 	return waveTable;
 }
+
+std::vector<double> Wave::createSineLUT(int size)
+{
+	std::vector<double> sineLUT;
+	sineLUT.assign(size, 0.0);
+	for (int i = 0; i < size; i++)
+	{
+		sineLUT[i] = (double)sin((double)i * M_PI * 2.0 / (double)size);
+	}
+	return sineLUT;
+}
+
+std::vector<double> Wave::createGuitarLUT(int size)
+{
+	std::vector<double> guitarLUT;
+	guitarLUT.assign(size, 0.0);
+	for (int i = 0; i < size; i++)
+	{
+		guitarLUT[i] = 0.065 * (double)sin((double)i * M_PI * 2.0 / (double)size)
+			+ 0.031 * (double)sin((double)i * M_PI * 4.0 / (double)size)
+			+ 0.0175 * (double)sin((double)i * M_PI * 6.0 / (double)size)
+			+ 0.006 * (double)sin((double)i * M_PI * 8.0 / (double)size)
+			+ 0.00084 * (double)sin((double)i * M_PI * 12.0 / (double)size)
+			+ 0.003 * (double)sin((double)i * M_PI * 14.0 / (double)size)
+			+ 0.00076 * (double)sin((double)i * M_PI * 16.0 / (double)size);
+	}
+	double max = *max_element(guitarLUT.begin(), guitarLUT.end());
+	for (int i = 0; i < size; i++)
+	{
+		guitarLUT[i] /= max;
+	}
+	return guitarLUT;
+}
+
+std::vector<double> Wave::LUT = createGuitarLUT(2048);

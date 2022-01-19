@@ -1,13 +1,8 @@
 #include "Wave.h"
 #include "Input.h"
-#include "Global.h"
 #include "portaudio.h"
 #include "sciter-x.h"
 #include "sciter-x-window.hpp"
-#include <math.h>
-#include <map>
-#include <string>
-#include <vector>
 #include <functional>
 #include <chrono>
 #include <thread>
@@ -77,7 +72,7 @@ public:
         (void)inputBuffer;
 
         Data* data = (Data*) userData;
-        double duration = framesPerBuffer / SAMPLE_RATE;
+        double duration = framesPerBuffer / Wave::SAMPLE_RATE;
         int increment = 1;
 
         for (i = 0; i < framesPerBuffer; i++)
@@ -101,7 +96,7 @@ public:
         ScopedPaHandler paInit;
         if (paInit.result() != paNoError) return;
         std::vector<double> waveTable = getWavetable(mode, key, scaleType, input, timeSignatureLower, BPM);
-        double duration = (double)waveTable.size() / (double)SAMPLE_RATE;
+        double duration = (double)waveTable.size() / (double)Wave::SAMPLE_RATE;
 
         if (waveTable.empty())
         {
@@ -115,7 +110,7 @@ public:
             0,          /* no input channels */
             2,          /* stereo output */
             paFloat32,  /* 32 bit floating point output */
-            SAMPLE_RATE,
+            Wave::SAMPLE_RATE,
             512,        /* frames per buffer */
             paCallback,
             &data);
@@ -176,7 +171,7 @@ public:
 
     double getDuration(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
     {
-        return (double)(getWavetable(mode, key, scaleType, input, timeSignatureLower, BPM).size()) / (double)SAMPLE_RATE;
+        return (double)(getWavetable(mode, key, scaleType, input, timeSignatureLower, BPM).size()) / (double)Wave::SAMPLE_RATE;
     }
 };
 

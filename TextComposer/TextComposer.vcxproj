@@ -148,14 +148,12 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Global.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="sciter-win-main.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Global.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>
