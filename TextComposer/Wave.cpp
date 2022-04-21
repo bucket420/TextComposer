@@ -29,9 +29,9 @@ Wave::Wave(std::vector<double>* waveTable)
 	(this->waveTable) = *waveTable;
 }
 
-std::vector<double>* Wave::getWaveTable()
+std::vector<double> Wave::getWaveTable()
 {
-	return &waveTable;
+	return waveTable;
 }
 
 double Wave::getDuration()
@@ -65,28 +65,28 @@ std::vector<double> Wave::createWaveTable(double freq, double duration)
 	return wave;
 }
 
-void Wave::append(Wave* wave)
+void Wave::append(Wave wave)
 {
-	if (!wave)
+	//if (wave)
+	//{
+	//	return;
+	//}
+	for (int i = 0; i < ((&wave)->waveTable).size(); i++)
 	{
-		return;
-	}
-	for (int i = 0; i < (&wave->waveTable)->size(); i++)
-	{
-		(&this->waveTable)->push_back((wave->waveTable)[i]);
+		(&this->waveTable)->push_back(((&wave)->waveTable)[i]);
 	}
 }
 
-void Wave::add(Wave* wave)
+void Wave::add(Wave wave)
 {
-	if (!wave)
-	{
-		return;
-	}
-	if ((&this->waveTable)->size() < (&wave->waveTable)->size()) (&this->waveTable)->resize(wave->waveTable.size(), 0.0);
+	//if (!wave)
+	//{
+	//	return;
+	//}
+	if ((&this->waveTable)->size() < ((&wave)->waveTable).size()) (&this->waveTable)->resize((&wave)->waveTable.size(), 0.0);
 	for (int i = 0; i < this->waveTable.size(); i++)
 	{
-		(this->waveTable)[i] += (wave->waveTable)[i];
+		(this->waveTable)[i] += ((&wave)->waveTable)[i];
 	}
 }
 
@@ -157,6 +157,28 @@ std::vector<double> Wave::createGuitarLUT(int size)
 		guitarLUT[i] /= max;
 	}
 	return guitarLUT;
+}
+
+double Wave::getNoteFreq(std::string name)
+{
+	char letter = name[0];
+	int octaveNumber = name[name.length() - 1] - '0';
+	const char* iterator = std::find(Wave::OCTAVE, Wave::OCTAVE + 7, letter);
+	int index = iterator - Wave::OCTAVE;
+	double freq = 0;
+	if (name.length() == 2)
+	{
+		freq = Wave::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber);
+	}
+	if (name[1] == '#')
+	{
+		freq = Wave::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber + 1.0 / 12.0);
+	}
+	if (name[1] == 'b')
+	{
+		freq = Wave::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber - 1.0 / 12.0);
+	}
+	return freq;
 }
 
 void Wave::normalize()

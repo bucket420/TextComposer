@@ -3,12 +3,12 @@
 
 class Note : public Wave
 {
-	using Wave::Wave;
-
 public:
-	void setWaveTable(std::string note, std::string timeSignatureLower, std::string BPM);
+	Note(std::string note, std::string timeSignatureLower, std::string BPM);
 
 private:
-	double getNoteFreq(std::string name);
-	double getDuration(std::string note, std::string timeSignatureLower, std::string BPM);
+	std::string note;
+	double getDuration(std::string timeSignatureLower, std::string BPM);
+	void setWaveTable(std::string timeSignatureLower, std::string BPM);
+
 };

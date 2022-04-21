@@ -1,6 +1,12 @@
 #include "Chord.h"
 #include <algorithm>
 
+Chord::Chord(std::string chord, std::array<double, 25> scale, std::string scaleType, std::string timeSignatureLower, std::string BPM)
+{
+	this->chord = chord;
+	setWaveTable(scale, scaleType, timeSignatureLower, BPM);
+}
+
 double Chord::getDuration(std::string note, std::string timeSignatureLower, std::string BPM)
 {
 	int eighthCount = std::count(note.begin(), note.end(), '-');
@@ -27,33 +33,13 @@ std::string Chord::getRomanNumber(std::string chord)
 	return chord;
 }
 
-std::array<double, 25> Chord::createTwoOctaveScale(std::string key)
-{
-	if (std::find(Wave::OCTAVE, Wave::OCTAVE + 7, key[0]) == std::end(Wave::OCTAVE)) return {};
-	std::array<double, 25> twoOctaveScale;
-	double firstNote = getNoteFreq(key + '4') * pow(2.0, -1.0 / 12.0);
-	if (key.size() > 2 || ((key.size() == 2) && key[1] != '#' && key[1] != 'b') || key.size() == 0) return {};
-	if (key[1] == '#')
-	{
-		firstNote *= pow(2.0, 1.0 / 12.0);
-	}
-	if (key[1] == 'b')
-	{
-		firstNote *= pow(2.0, -1.0 / 12.0);
-	}
-	for (int i = 0; i < 25; i++)
-	{
-		twoOctaveScale[i] = firstNote * pow(2.0, (double)i / 12.0);
-	}
-	return twoOctaveScale;
-}
 
-void Chord::setWaveTable(std::string chord, std::array<double, 25> scale, std::string scaleType, std::string timeSignatureLower, std::string BPM)
+void Chord::setWaveTable(std::array<double, 25> scale, std::string scaleType, std::string timeSignatureLower, std::string BPM)
 {
 	double duration = getDuration(chord, timeSignatureLower, BPM);
 	std::string romanNumber = getRomanNumber(chord);
 	const std::string* iterator = std::find(Wave::ROMAN_NUMBERS, Wave::ROMAN_NUMBERS + 7, toUpper(romanNumber));
-	if (iterator == std::end(Wave::ROMAN_NUMBERS) || duration == 0 || romanNumber.empty()) return {};
+	if (iterator == std::end(Wave::ROMAN_NUMBERS) || duration == 0 || romanNumber.empty()) return;
 	int index = iterator - Wave::ROMAN_NUMBERS;
 	int step;
 	if (scaleType == "major") step = Wave::MAJOR_SCALE_STEPS[index];
@@ -63,36 +49,36 @@ void Chord::setWaveTable(std::string chord, std::array<double, 25> scale, std::s
 	if (chord[romanNumber.size()] == '#') step += 1;
 
 	Wave wave(scale[step], duration);
-	Wave secondNote;
-	Wave thirdNote;
+	//Wave secondNote;
+	//Wave thirdNote;
 	if (chord[romanNumber.size()] == 'd' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'd'))
 	{
-		(&secondNote)->setWaveTable(scale[step + 3], duration);
-		(&thirdNote)->setWaveTable(scale[step + 6], duration);
-		(&wave)->add(&secondNote);
-		(&wave)->add(&thirdNote);
+	/*	(&secondNote)->setWaveTable(scale[step + 3], duration);
+		(&thirdNote)->setWaveTable(scale[step + 6], duration);*/
+		(&wave)->add(Wave::Wave(scale[step + 3], duration));
+		(&wave)->add(Wave::Wave(scale[step + 6], duration));
 	}
 	else if (chord[romanNumber.size()] == 'a' || (chord.size() > romanNumber.size() + 1 && chord[romanNumber.size() + 1] == 'a'))
 	{
-		(&secondNote)->setWaveTable(scale[step + 4], duration);
-		(&thirdNote)->setWaveTable(scale[step + 8], duration);
-		(&wave)->add(&secondNote);
-		(&wave)->add(&thirdNote);
+		//(&secondNote)->setWaveTable(scale[step + 4], duration);
+		//(&thirdNote)->setWaveTable(scale[step + 8], duration);
+		(&wave)->add(Wave::Wave(scale[step + 4], duration));
+		(&wave)->add(Wave::Wave(scale[step + 8], duration));
 	}
 	else if (isupper(chord[0]))
 	{
-		(&secondNote)->setWaveTable(scale[step + 4], duration);
-		(&thirdNote)->setWaveTable(scale[step + 7], duration);
-		(&wave)->add(&secondNote);
-		(&wave)->add(&thirdNote);
+		//(&secondNote)->setWaveTable(scale[step + 4], duration);
+		//(&thirdNote)->setWaveTable(scale[step + 7], duration);
+		(&wave)->add(Wave::Wave(scale[step + 4], duration));
+		(&wave)->add(Wave::Wave(scale[step + 7], duration));
 	}
 	else if (islower(chord[0]))
 	{
-		(&secondNote)->setWaveTable(scale[step + 3], duration);
-		(&thirdNote)->setWaveTable(scale[step + 7], duration);
-		(&wave)->add(&secondNote);
-		(&wave)->add(&thirdNote);
+		//(&secondNote)->setWaveTable(scale[step + 3], duration);
+		//(&thirdNote)->setWaveTable(scale[step + 7], duration);
+		(&wave)->add(Wave::Wave(scale[step + 3], duration));
+		(&wave)->add(Wave::Wave(scale[step + 7], duration));
 	}
 	(&wave)->normalize();
-	this->waveTable = (&wave)->waveTable;
+	this->waveTable = (&wave)->getWaveTable();
 }

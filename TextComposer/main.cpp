@@ -1,5 +1,6 @@
 #include "Wave.h"
-#include "Input.h"
+#include "Melody.h"
+#include "ChordProgression.h"
 #include "portaudio.h"
 #include "sciter-x.h"
 #include "sciter-x-window.hpp"
@@ -44,13 +45,13 @@ public:
         switch (mode)
         {
         case 1:
-            wave = Input::inputToWavetableFirstMode(input, timeSignatureLower, BPM);
+            wave = Melody::Melody(input, timeSignatureLower, BPM);
             break;
         case 2:
-            wave = Input::inputToWavetableSecondMode(input, key, scaleType, timeSignatureLower, BPM);
+            wave = ChordProgression::ChordProgression(input, key, scaleType, timeSignatureLower, BPM);
             break;
         }
-        return wave.waveTable;
+        return wave.getWaveTable();
     }
 
     struct Data

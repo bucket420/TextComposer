@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Wave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,11 +30,14 @@
     <ClCompile Include="Chord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChordProgression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Melody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Input.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Wave.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -45,6 +45,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Chord.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChordProgression.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Melody.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

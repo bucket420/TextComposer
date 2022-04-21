@@ -148,16 +148,18 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Melody.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="sciter-win-main.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Chord.cpp" />
+    <ClCompile Include="ChordProgression.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chord.h" />
-    <ClInclude Include="Input.h" />
+    <ClInclude Include="ChordProgression.h" />
+    <ClInclude Include="Melody.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>
