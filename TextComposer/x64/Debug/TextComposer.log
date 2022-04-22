@@ -1,12 +1,7 @@
-﻿  Melody.cpp
-  Note.cpp
-  sciter-win-main.cpp
+﻿  sciter-win-main.cpp
 D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-win-main.cpp(2,10): fatal error C1083: Cannot open include file: 'sciter-x-window.hpp': No such file or directory
   main.cpp
 D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\TextToAudio.h(5,10): fatal error C1083: Cannot open include file: 'portaudio.h': No such file or directory
-  Chord.cpp
-D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Chord.cpp(35,12): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
-  ChordProgression.cpp
   TextToAudio.cpp
 D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\TextToAudio.h(5,10): fatal error C1083: Cannot open include file: 'portaudio.h': No such file or directory
   Wave.cpp
@@ -15,5 +10,3 @@ D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Wave.cpp(124,12): wa
 D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Wave.cpp(143,18): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
 D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Wave.cpp(144,23): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
   Generating Code...
-D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\ChordProgression.cpp(43): warning C4715: 'ChordProgression::getChords': not all control paths return a value
-D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\Melody.cpp(37): warning C4715: 'Melody::getNotes': not all control paths return a value
