@@ -1,7 +1,13 @@
-﻿  main.htm 4750 compressed to 1814 (38%)
+﻿  main.htm 4537 compressed to 1749 (38%)
   -----------------------------
-  compressed size 1910 bytes
+  compressed size 1845 bytes
   resources not changed
+  main.cpp
+  Generating code
+  3 of 755 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
   TextComposer.vcxproj -> D:\OneDrive\Desktop\MusicProjects\TextComposer\x64\Release\TextComposer.exe
           1 file(s) copied.
   D:\OneDrive\Desktop\MusicProjects\TextComposer\TextComposer\sciter-sdk\bin\windows\x64\inspector.exe

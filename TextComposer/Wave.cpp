@@ -13,6 +13,8 @@ const std::string Wave::ROMAN_NUMBERS[7] = { "I", "II", "III", "IV", "V", "VI", 
 const int Wave::MAJOR_SCALE_STEPS[7] = { 1, 3, 5, 6, 8, 10, 12 };
 const int Wave::MINOR_SCALE_STEPS[7] = { 1, 3, 4, 6, 8, 9, 11 };
 const std::vector<double> Wave::LUT = createGuitarLUT(2048);
+double Wave::timeSignatureLower = 4.0;
+double Wave::BPM = 120.0;
 
 Wave::Wave()
 {
@@ -24,10 +26,6 @@ Wave::Wave(double freq, double duration)
 	waveTable = createWaveTable(freq, duration);
 }
 
-Wave::Wave(std::vector<double>* waveTable)
-{
-	(this->waveTable) = *waveTable;
-}
 
 std::vector<double> Wave::getWaveTable()
 {
@@ -42,11 +40,6 @@ double Wave::getDuration()
 void Wave::setWaveTable(double freq, double duration)
 {
 	waveTable = createWaveTable(freq, duration);
-}
-
-void Wave::setWaveTable(std::vector<double> waveTable)
-{
-	this->waveTable = waveTable;
 }
 
 std::vector<double> Wave::createWaveTable(double freq, double duration)
@@ -67,10 +60,10 @@ std::vector<double> Wave::createWaveTable(double freq, double duration)
 
 void Wave::append(Wave wave)
 {
-	//if (wave)
-	//{
-	//	return;
-	//}
+	if (wave.isEmpty())
+	{
+		return;
+	}
 	for (int i = 0; i < ((&wave)->waveTable).size(); i++)
 	{
 		(&this->waveTable)->push_back(((&wave)->waveTable)[i]);
@@ -79,51 +72,15 @@ void Wave::append(Wave wave)
 
 void Wave::add(Wave wave)
 {
-	//if (!wave)
-	//{
-	//	return;
-	//}
+	if (wave.isEmpty())
+	{
+		return;
+	}
 	if ((&this->waveTable)->size() < ((&wave)->waveTable).size()) (&this->waveTable)->resize((&wave)->waveTable.size(), 0.0);
 	for (int i = 0; i < this->waveTable.size(); i++)
 	{
 		(this->waveTable)[i] += ((&wave)->waveTable)[i];
 	}
-}
-
-std::vector<double> Wave::appendWaveTables(std::vector<std::vector<double>>* tables)
-{
-	if (!tables)
-	{
-		return {};
-	}
-	std::vector<double> waveTable{};
-	for (std::vector<double> table : *tables)
-	{
-		for (int i = 0; i < table.size(); i++)
-		{
-			(&waveTable)->push_back(table[i]);
-		}
-	}
-	return waveTable;
-}
-
-std::vector<double> Wave::addWaveTables(std::vector<std::vector<double>>* tables)
-{
-	if (!tables)
-	{
-		return {};
-	}
-	std::vector<double> waveTable{};
-	for (int i = 0; i < tables->size(); i++)
-	{
-		if ((&waveTable)->size() < (*tables)[i].size()) (&waveTable)->resize((*tables)[i].size(), 0.0);
-		for (int j = 0; j < (&waveTable)->size(); j++)
-		{
-			waveTable[j] += (*tables)[i][j];
-			if (i == tables->size() - 1) waveTable[j] /= (double)(tables->size());
-		}
-	}
-	return waveTable;
 }
 
 std::vector<double> Wave::createSineLUT(int size)
@@ -179,6 +136,25 @@ double Wave::getNoteFreq(std::string name)
 		freq = Wave::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber - 1.0 / 12.0);
 	}
 	return freq;
+}
+
+double Wave::getDuration(std::string input)
+{
+	int eighthCount = std::count(input.begin(), input.end(), '-');
+	int sixtyfourthCount = std::count(input.begin(), input.end(), '.');
+	if (eighthCount == 0 && sixtyfourthCount == 0) return 0.0;
+	return timeSignatureLower * 60.0 / BPM * ((double)sixtyfourthCount * 1.0 / 64.0 + (double)eighthCount * 0.125);
+}
+
+void Wave::setTimeSignatureLowerAndBPM(std::string timeSignatureLower, std::string BPM)
+{
+	Wave::timeSignatureLower = std::stod(timeSignatureLower);
+	Wave::BPM = std::stod(BPM);
+}
+
+bool Wave::isEmpty()
+{
+	return waveTable.empty();
 }
 
 void Wave::normalize()

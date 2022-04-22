@@ -4,11 +4,10 @@
 class Note : public Wave
 {
 public:
-	Note(std::string note, std::string timeSignatureLower, std::string BPM);
+	Note(std::string note);
 
 private:
 	std::string note;
-	double getDuration(std::string timeSignatureLower, std::string BPM);
-	void setWaveTable(std::string timeSignatureLower, std::string BPM);
+	void setWaveTable();
 
 };

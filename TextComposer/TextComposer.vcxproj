@@ -154,6 +154,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Chord.cpp" />
     <ClCompile Include="ChordProgression.cpp" />
+    <ClCompile Include="TextToAudio.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="ChordProgression.h" />
     <ClInclude Include="Melody.h" />
     <ClInclude Include="Note.h" />
+    <ClInclude Include="TextToAudio.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

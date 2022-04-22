@@ -1,11 +1,11 @@
 #include "ChordProgression.h"
 
-ChordProgression::ChordProgression(std::string progression, std::string key, std::string scaleType, std::string timeSignatureLower, std::string BPM)
+ChordProgression::ChordProgression(std::string progression, std::string key, std::string scaleType)
 {
 	this->progression = progression;
 	this->key = key;
 	this->scaleType = scaleType;
-	setWaveTable(timeSignatureLower, BPM);
+	setWaveTable();
 }
 
 std::vector<int> ChordProgression::getChordIndexes()
@@ -63,13 +63,13 @@ std::array<double, 25> ChordProgression::createTwoOctaveScale(std::string key)
 	return twoOctaveScale;
 }
 
-void ChordProgression::setWaveTable(std::string timeSignatureLower, std::string BPM)
+void ChordProgression::setWaveTable()
 {
 	std::vector<std::string> chordList = getChords();
 	std::array<double, 25> scale = createTwoOctaveScale(key);
 	for (int i = 0; i < chordList.size(); i++)
 	{
-		this->add(Chord(chordList[i], scale, scaleType, timeSignatureLower, BPM));
+		this->append(Chord(chordList[i], scale, scaleType));
 	}
 
 }

@@ -36,6 +36,9 @@
     <ClCompile Include="Melody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TextToAudio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Wave.h">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Melody.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextToAudio.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

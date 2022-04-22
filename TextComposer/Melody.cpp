@@ -1,10 +1,10 @@
 #include "Melody.h"
 
 
-Melody::Melody(std::string melody, std::string timeSignatureLower, std::string BPM)
+Melody::Melody(std::string melody)
 {
 	this->melody = melody;
-	setWaveTable(timeSignatureLower, BPM);
+	setWaveTable();
 }
 
 std::vector<int> Melody::getNoteIndexes()
@@ -36,12 +36,12 @@ std::vector<std::string> Melody::getNotes()
 	}
 }
 
-void Melody::setWaveTable(std::string timeSignatureLower, std::string BPM)
+void Melody::setWaveTable()
 {
 	std::vector<std::string> noteList = getNotes();
 	if (noteList.empty()) return;
 	for (int i = 0; i < noteList.size(); i++)
 	{
-		this->add(Note(noteList[i], timeSignatureLower, BPM));
+		this->append(Note(noteList[i]));
 	}
 }

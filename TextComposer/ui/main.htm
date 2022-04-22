@@ -76,14 +76,11 @@
             var BPM = document.getElementById("bpm").value;
             var score = document.getElementById("score").value;
             const thisWindow = Window.this;
-            var duration = thisWindow.frame.getDuration(mode, key, scaleType, score, timeSignatureLower, BPM) * 1000;
             thisWindow.frame.play(mode, key, scaleType, score, timeSignatureLower, BPM);
-            if (duration == 0) { 
+            var valid = thisWindow.frame.isValid();
+            if (!valid) { 
                 errorMessage.style.display = "block";
             }
-            //thisWindow.frame.stop();
-            //setTimeout(function(){ thisWindow.frame.stop(); }, 1000);
-            //self.timer(1s, function(){ thisWindow.frame.stop(); });
         }
         document.$("button#stop").onclick = function() {
             const thisWindow = Window.this;
@@ -98,13 +95,13 @@
             <div class="input" id="mode">
                 Mode:
                 <input type="radio" value="1" id="mode1" checked>
-                <label for="html">Single Notes</label>
+                <label for="html">Melody</label>
                 <input type="radio" value="2">
                 <label for="html">Chord Progression</label>
             </div>
             <div class="input">
                 Scale:
-                <input class="text" id="key">
+                <input class="text" id="key" value = "C">
                 <select id="scale-type">
                     <option value="major">Major</option>
                     <option value="minor">Minor</option>
@@ -112,13 +109,13 @@
             </div>
             <div class="input">
                 <label for="time-signature">Time signature: </label>
-                <input class="text" id="time-signature-upper">
+                <input class="text" id="time-signature-upper" value = "4">
                 /
-                <input class="text" id="time-signature-lower">
+                <input class="text" id="time-signature-lower" value = "4">
             </div>
             <div class="input">
                 <label for="bpm">BPM: </label>
-                <input class="text" id="bpm">
+                <input class="text" id="bpm" value = "120">
             </div>
             <div class="input">
                 <div for="score">Your score: </div>
