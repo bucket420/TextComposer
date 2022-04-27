@@ -18,6 +18,26 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Chord.cpp" />
+    <ClCompile Include="Src\ChordProgression.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Melody.cpp" />
+    <ClCompile Include="Src\Note.cpp" />
+    <ClCompile Include="Src\sciter-win-main.cpp" />
+    <ClCompile Include="Src\TextToAudio.cpp" />
+    <ClCompile Include="Src\Wave.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Chord.h" />
+    <ClInclude Include="Src\ChordProgression.h" />
+    <ClInclude Include="Src\Constants.h" />
+    <ClInclude Include="Src\Melody.h" />
+    <ClInclude Include="Src\Note.h" />
+    <ClInclude Include="Src\stdafx.h" />
+    <ClInclude Include="Src\TextToAudio.h" />
+    <ClInclude Include="Src\Wave.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -147,24 +167,6 @@
       <Command>$(ProjectDir)sciter-sdk\bin\windows\packfolder.exe $(ProjectDir)ui $(ProjectDir)resources.cpp -v "resources"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Melody.cpp" />
-    <ClCompile Include="Note.cpp" />
-    <ClCompile Include="sciter-win-main.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Chord.cpp" />
-    <ClCompile Include="ChordProgression.cpp" />
-    <ClCompile Include="TextToAudio.cpp" />
-    <ClCompile Include="Wave.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Chord.h" />
-    <ClInclude Include="ChordProgression.h" />
-    <ClInclude Include="Melody.h" />
-    <ClInclude Include="Note.h" />
-    <ClInclude Include="TextToAudio.h" />
-    <ClInclude Include="Wave.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

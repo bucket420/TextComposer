@@ -15,48 +15,54 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Wave.cpp">
+    <ClCompile Include="Src\Chord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sciter-win-main.cpp">
+    <ClCompile Include="Src\ChordProgression.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Note.cpp">
+    <ClCompile Include="Src\Melody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Chord.cpp">
+    <ClCompile Include="Src\Note.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ChordProgression.cpp">
+    <ClCompile Include="Src\sciter-win-main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Melody.cpp">
+    <ClCompile Include="Src\TextToAudio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextToAudio.cpp">
+    <ClCompile Include="Src\Wave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Wave.h">
+    <ClInclude Include="Src\Chord.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Note.h">
+    <ClInclude Include="Src\ChordProgression.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Chord.h">
+    <ClInclude Include="Src\Constants.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="ChordProgression.h">
+    <ClInclude Include="Src\Melody.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Melody.h">
+    <ClInclude Include="Src\Note.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextToAudio.h">
+    <ClInclude Include="Src\stdafx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\TextToAudio.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Wave.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
