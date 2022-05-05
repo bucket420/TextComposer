@@ -73,10 +73,6 @@ namespace sciter {
 
     LRESULT window::on_message(HWINDOW hwnd, UINT msg, WPARAM wParam, LPARAM lParam, SBOOL& pHandled)
     {
-        //switch(msg) {
-        //  case WM_SIZE: on_size(); break; 
-        //  case WM_MOVE: on_move(); break; 
-        //}
         return 0;
     }
 

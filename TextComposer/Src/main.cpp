@@ -60,14 +60,9 @@ public:
 int uimain(std::function<int()> run) {
 
     sciter::archive::instance().open(aux::elements_of(resources)); // bind resources[] (defined in "resources.cpp") with the archive
-
     sciter::om::hasset<frame> pwin = new frame();
 
-    // note: this:://app URL is dedicated to the sciter::archive content associated with the application
     pwin->load(WSTR("this://app/main.htm"));
-    //or use this to load UI from  
-    //  pwin->load( WSTR("file:///home/andrew/Desktop/Project/res/main.htm") );
-
     pwin->expand();
 
     return run();
