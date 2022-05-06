@@ -26,17 +26,16 @@
     <ClCompile Include="Src\Note.cpp" />
     <ClCompile Include="Src\sciter-win-main.cpp" />
     <ClCompile Include="Src\TextToAudio.cpp" />
-    <ClCompile Include="Src\Wave.cpp" />
+    <ClCompile Include="Src\Signal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Chord.h" />
     <ClInclude Include="Src\ChordProgression.h" />
-    <ClInclude Include="Src\Constants.h" />
     <ClInclude Include="Src\Melody.h" />
     <ClInclude Include="Src\Note.h" />
     <ClInclude Include="Src\stdafx.h" />
     <ClInclude Include="Src\TextToAudio.h" />
-    <ClInclude Include="Src\Wave.h" />
+    <ClInclude Include="Src\Signal.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -164,7 +163,7 @@
       <Command>copy $(ProjectDir)portaudio_x64\lib\portaudio_x64.dll $(TargetDir) &amp; copy $(ProjectDir)sciter-sdk\bin\windows\x64 $(TargetDir)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>$(ProjectDir)sciter-sdk\bin\windows\packfolder.exe $(ProjectDir)ui $(ProjectDir)resources.cpp -v "resources"</Command>
+      <Command>$(ProjectDir)sciter-sdk\bin\windows\packfolder.exe $(ProjectDir)ui $(ProjectDir)src/resources.cpp -v "resources"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

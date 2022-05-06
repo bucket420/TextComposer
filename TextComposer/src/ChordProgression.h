@@ -1,7 +1,7 @@
 #pragma once
 #include "Chord.h"
 
-class ChordProgression : public Wave
+class ChordProgression : public Signal
 {
 public:
 	ChordProgression(std::string progression, std::string key, std::string scaleType);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Note.h"
 
-class Melody : public Wave
+class Melody : public Signal
 {
 public:
 	Melody(std::string melody);

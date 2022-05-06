@@ -36,7 +36,7 @@
     <ClCompile Include="Src\TextToAudio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Wave.cpp">
+    <ClCompile Include="Src\Signal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,9 +45,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\ChordProgression.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Constants.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Melody.h">
@@ -62,7 +59,7 @@
     <ClInclude Include="Src\TextToAudio.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Wave.h">
+    <ClInclude Include="Src\Signal.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
-#include "Wave.h"
+#include "Signal.h"
 
-class Note : public Wave
+class Note : public Signal
 {
 public:
 	Note(std::string note);

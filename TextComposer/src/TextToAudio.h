@@ -1,5 +1,5 @@
 #pragma once
-#include "Wave.h"
+#include "Signal.h"
 #include "Melody.h"
 #include "ChordProgression.h"
 #include "portaudio.h"
@@ -19,7 +19,7 @@ class TextToAudio
 public:
 	PaStream* stream;
 	bool stopPlayback;
-    std::unique_ptr<Wave> wave = std::unique_ptr<Wave>(new Wave);
+    std::unique_ptr<Signal> signal = std::unique_ptr<Signal>(new Signal);
 
     void setWave(int mode, std::string key, std::string scaleType, std::string input);
     double getDuration();

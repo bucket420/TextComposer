@@ -1,8 +1,8 @@
 #pragma once
-#include "Wave.h"
+#include "Signal.h"
 #include <array>
 
-class Chord : public Wave
+class Chord : public Signal
 {
 public:
 	Chord(std::string chord, std::array<double, 25> scale, std::string scaleType);

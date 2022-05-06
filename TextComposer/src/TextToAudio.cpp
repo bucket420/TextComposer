@@ -34,10 +34,10 @@ void TextToAudio::setWave(int mode, std::string key, std::string scaleType, std:
     switch (mode)
     {
     case 1:
-        *wave = Melody::Melody(input);
+        *signal = ChordProgression::ChordProgression(input, key, scaleType);
         break;
     case 2:
-        *wave = ChordProgression::ChordProgression(input, key, scaleType);
+        *signal = Melody::Melody(input);
         break;
     }
 }
@@ -56,7 +56,7 @@ int TextToAudio::paCallback(const void* inputBuffer, void* outputBuffer,
     (void)inputBuffer;
 
     Data* data = (Data*)userData;
-    double duration = framesPerBuffer / Wave::SAMPLE_RATE;
+    double duration = framesPerBuffer / Signal::SAMPLE_RATE;
     int increment = 1;
 
     for (i = 0; i < framesPerBuffer; i++)
@@ -78,21 +78,21 @@ void TextToAudio::start()
     }
     ScopedPaHandler paInit;
     if (paInit.result() != paNoError) return;
-    double duration = wave->getDuration();
+    double duration = signal->getDuration();
 
-    if (wave->isEmpty())
+    if (signal->isEmpty())
     {
         return;
     }
 
     Data data;
-    data.waveTable = wave->getWaveTable();
+    data.waveTable = signal->getWaveTable();
 
     int err = Pa_OpenDefaultStream(&stream,
         0,          /* no input channels */
         2,          /* stereo output */
         paFloat32,  /* 32 bit floating point output */
-        Wave::SAMPLE_RATE,
+        Signal::SAMPLE_RATE,
         512,        /* frames per buffer */
         paCallback,
         &data);
@@ -136,5 +136,5 @@ void TextToAudio::stop()
 
 double TextToAudio::getDuration()
 {
-    return wave->getDuration();
+    return signal->getDuration();
 }

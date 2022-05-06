@@ -1,5 +1,5 @@
 #include "TextToAudio.h"
-#include "Wave.h"
+#include "Signal.h"
 #include "Melody.h"
 #include "ChordProgression.h"
 #include "portaudio.h"
@@ -37,7 +37,7 @@ public:
     // function exposed to script:
     void play(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
     {
-        Wave::setTimeSignatureLowerAndBPM(timeSignatureLower, BPM);
+        Signal::setTimeSignatureLowerAndBPM(timeSignatureLower, BPM);
         (&Player)->setWave(mode, key, scaleType, input);
         validInput = (&Player)->getDuration() > 0;
         std::thread t1(&frame::start, this);
