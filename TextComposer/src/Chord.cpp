@@ -25,7 +25,6 @@ std::string Chord::getRomanNumber(std::string chord)
 	return chord;
 }
 
-
 void Chord::setWaveTable(std::array<double, 25> scale, std::string scaleType)
 {
 	double duration = getDuration(chord);
