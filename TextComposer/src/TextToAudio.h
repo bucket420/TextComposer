@@ -12,15 +12,16 @@
 #include <functional>
 #include <chrono>
 #include <thread>
+#include <memory>
 
 class TextToAudio
 {
 public:
 	PaStream* stream;
 	bool stopPlayback;
-    std::vector<double> waveTable;
+    std::unique_ptr<Wave> wave = std::unique_ptr<Wave>(new Wave);
 
-    void setWavetable(int mode, std::string key, std::string scaleType, std::string input);
+    void setWave(int mode, std::string key, std::string scaleType, std::string input);
     double getDuration();
     static int paCallback(const void* inputBuffer, void* outputBuffer,
         unsigned long framesPerBuffer,

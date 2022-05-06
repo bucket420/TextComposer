@@ -25,23 +25,21 @@ private:
 
 struct Data
 {
-    std::vector<double>* waveTable;
+    std::vector<double> waveTable;
     int phase = 0;
 };
 
-void TextToAudio::setWavetable(int mode, std::string key, std::string scaleType, std::string input)
+void TextToAudio::setWave(int mode, std::string key, std::string scaleType, std::string input)
 {
-    Wave wave;
     switch (mode)
     {
     case 1:
-        wave = Melody::Melody(input);
+        *wave = Melody::Melody(input);
         break;
     case 2:
-        wave = ChordProgression::ChordProgression(input, key, scaleType);
+        *wave = ChordProgression::ChordProgression(input, key, scaleType);
         break;
     }
-    waveTable = wave.getWaveTable();
 }
 
 int TextToAudio::paCallback(const void* inputBuffer, void* outputBuffer,
@@ -63,8 +61,8 @@ int TextToAudio::paCallback(const void* inputBuffer, void* outputBuffer,
 
     for (i = 0; i < framesPerBuffer; i++)
     {
-        *out++ = (*(data->waveTable))[data->phase];  /* left */
-        *out++ = (*(data->waveTable))[data->phase];  /* right */
+        *out++ = data->waveTable[data->phase];  /* left */
+        *out++ = data->waveTable[data->phase];  /* right */
         data->phase += increment;
     }
 
@@ -80,15 +78,15 @@ void TextToAudio::start()
     }
     ScopedPaHandler paInit;
     if (paInit.result() != paNoError) return;
-    double duration = (double)waveTable.size() / (double)Wave::SAMPLE_RATE;
+    double duration = wave->getDuration();
 
-    if (waveTable.empty())
+    if (wave->isEmpty())
     {
         return;
     }
 
     Data data;
-    data.waveTable = &waveTable;
+    data.waveTable = wave->getWaveTable();
 
     int err = Pa_OpenDefaultStream(&stream,
         0,          /* no input channels */
@@ -138,5 +136,5 @@ void TextToAudio::stop()
 
 double TextToAudio::getDuration()
 {
-    return (double)(&waveTable)->size() / (double)Wave::SAMPLE_RATE;
+    return wave->getDuration();
 }

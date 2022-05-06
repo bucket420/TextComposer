@@ -19,5 +19,5 @@ void Note::setWaveTable()
 	{
 		name = note.substr(0, 2);
 	}
-	this->waveTable = createWaveTable(getNoteFreq(name), duration);	
+	*this->waveTable = createWaveTable(getNoteFreq(name), duration);	
 }

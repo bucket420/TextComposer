@@ -1,4 +1,5 @@
 #include "ChordProgression.h"
+#include <memory>
 
 ChordProgression::ChordProgression(std::string progression, std::string key, std::string scaleType)
 {
@@ -69,7 +70,7 @@ void ChordProgression::setWaveTable()
 	std::array<double, 25> scale = createTwoOctaveScale(key);
 	for (int i = 0; i < chordList.size(); i++)
 	{
-		this->append(Chord(chordList[i], scale, scaleType));
+		this->append(std::unique_ptr<Wave>(new Chord(chordList[i], scale, scaleType)));
 	}
 
 }

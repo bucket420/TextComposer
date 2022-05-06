@@ -38,7 +38,7 @@ public:
     void play(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
     {
         Wave::setTimeSignatureLowerAndBPM(timeSignatureLower, BPM);
-        (&Player)->setWavetable(mode, key, scaleType, input);
+        (&Player)->setWave(mode, key, scaleType, input);
         validInput = (&Player)->getDuration() > 0;
         std::thread t1(&frame::start, this);
         t1.detach();

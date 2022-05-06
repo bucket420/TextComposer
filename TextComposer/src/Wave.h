@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
 
 class Wave
 {
@@ -20,12 +21,13 @@ public:
 	Wave();
 	Wave(double freq, double duration);
 	
-	void add(Wave wave);
-	void append(Wave wave);
+	void add(std::unique_ptr<Wave> wave);
+	void append(std::unique_ptr<Wave> wave);
 	void normalize();
 	void setWaveTable(double freq, double duration);
 	bool isEmpty();
 	double getDuration();
+	double get(int index);
 	std::vector<double> getWaveTable();
 
 	static std::vector<double> createWaveTable(double freq, double duration);
@@ -36,5 +38,5 @@ public:
 	static void setTimeSignatureLowerAndBPM(std::string timeSignatureLower, std::string BPM);
 
 protected:
-	std::vector<double> waveTable = {};
+	std::unique_ptr<std::vector<double>> waveTable = std::unique_ptr<std::vector<double>>(new std::vector<double>);
 };

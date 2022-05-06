@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <memory>
 #include "Wave.h"
 
 #define M_PI  (3.14159265)
@@ -18,28 +19,32 @@ double Wave::BPM = 120.0;
 
 Wave::Wave()
 {
-	waveTable = {};
+	*waveTable = {};
 }
 
 Wave::Wave(double freq, double duration)
 {
-	waveTable = createWaveTable(freq, duration);
+	*waveTable = createWaveTable(freq, duration);
 }
 
+double Wave::get(int index)
+{
+	return (*waveTable)[index];
+}
 
 std::vector<double> Wave::getWaveTable()
 {
-	return waveTable;
+	return *waveTable;
 }
 
 double Wave::getDuration()
 {
-	return (double)(&waveTable)->size() / (double)SAMPLE_RATE;
+	return (double)waveTable->size() / (double)SAMPLE_RATE;
 }
 
 void Wave::setWaveTable(double freq, double duration)
 {
-	waveTable = createWaveTable(freq, duration);
+	*waveTable = createWaveTable(freq, duration);
 }
 
 std::vector<double> Wave::createWaveTable(double freq, double duration)
@@ -58,28 +63,28 @@ std::vector<double> Wave::createWaveTable(double freq, double duration)
 	return wave;
 }
 
-void Wave::append(Wave wave)
+void Wave::append(std::unique_ptr<Wave> wave)
 {
-	if (wave.isEmpty())
+	if (wave->isEmpty())
 	{
 		return;
 	}
-	for (int i = 0; i < ((&wave)->waveTable).size(); i++)
+	for (int i = 0; i < wave->waveTable->size(); i++)
 	{
-		(&this->waveTable)->push_back(((&wave)->waveTable)[i]);
+		this->waveTable->push_back((*wave->waveTable)[i]);
 	}
 }
 
-void Wave::add(Wave wave)
+void Wave::add(std::unique_ptr<Wave> wave)
 {
-	if (wave.isEmpty())
+	if (wave->isEmpty())
 	{
 		return;
 	}
-	if ((&this->waveTable)->size() < ((&wave)->waveTable).size()) (&this->waveTable)->resize((&wave)->waveTable.size(), 0.0);
-	for (int i = 0; i < this->waveTable.size(); i++)
+	if (this->waveTable->size() < wave->waveTable->size()) this->waveTable->resize(wave->waveTable->size(), 0.0);
+	for (int i = 0; i < this->waveTable->size(); i++)
 	{
-		(this->waveTable)[i] += ((&wave)->waveTable)[i];
+		(*this->waveTable)[i] += (*wave->waveTable)[i];
 	}
 }
 
@@ -154,14 +159,14 @@ void Wave::setTimeSignatureLowerAndBPM(std::string timeSignatureLower, std::stri
 
 bool Wave::isEmpty()
 {
-	return waveTable.empty();
+	return waveTable->empty();
 }
 
 void Wave::normalize()
 {
-	double max = *(std::max_element(waveTable.begin(), waveTable.end()));
-	for (int i = 0; i < waveTable.size(); i++)
+	double max = *(std::max_element(waveTable->begin(), waveTable->end()));
+	for (int i = 0; i < waveTable->size(); i++)
 	{
-		waveTable[i] /= max;
+		(*waveTable)[i] /= max;
 	}
 }
