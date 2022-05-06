@@ -1,6 +1,6 @@
 # TextComposer
 ## Description
-**TextComposer** is an application that plays music based on your input text. Written mainly in C++, it allows you to quickly test musical ideas with a simple GUI and syntax. It's especially useful when you want to experiment with new chord progressions.
+**TextComposer** is an application that plays music based on your input text. It allows you to quickly test musical ideas with a simple GUI and syntax. It's especially useful when you want to experiment with new chord progressions.
 
 The output sound does not come from prerecorded audio files, but is generated directly by the soundcard using wavetable synthesis, with the help of [PortAudio library](http://portaudio.com/). I tried to replicate the sound of a guitar using Fourier analysis, but it's still a work in progress. The GUI is made with HTML, CSS, and Javascript using [Sciter.JS](https://github.com/c-smile/sciter-js-sdk).
 
