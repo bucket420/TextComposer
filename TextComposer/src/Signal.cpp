@@ -8,14 +8,15 @@
 
 #define M_PI  (3.14159265)
 
+double Signal::BPM = 120.0;
+double Signal::timeSignatureLower = 4.0;
+
 const double Signal::FIRST_OCTAVE_FREQ[7] = { 16.35, 18.35, 20.60, 21.83, 24.50, 27.50, 30.87 };
-const char Signal::OCTAVE[7] = { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
-const std::string Signal::ROMAN_NUMBERS[7] = { "I", "II", "III", "IV", "V", "VI", "VII" };
+const std::vector<double> Signal::LUT = createGuitarLUT(2048);
 const int Signal::MAJOR_SCALE_STEPS[7] = { 1, 3, 5, 6, 8, 10, 12 };
 const int Signal::MINOR_SCALE_STEPS[7] = { 1, 3, 4, 6, 8, 9, 11 };
-const std::vector<double> Signal::LUT = createGuitarLUT(2048);
-double Signal::timeSignatureLower = 4.0;
-double Signal::BPM = 120.0;
+const char Signal::OCTAVE[7] = { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
+const std::string Signal::ROMAN_NUMBERS[7] = { "I", "II", "III", "IV", "V", "VI", "VII" };
 
 Signal::Signal()
 {
@@ -25,54 +26,6 @@ Signal::Signal()
 Signal::Signal(double freq, double duration)
 {
 	*waveTable = createWaveTable(freq, duration);
-}
-
-double Signal::get(int index)
-{
-	return (*waveTable)[index];
-}
-
-std::vector<double> Signal::getWaveTable()
-{
-	return *waveTable;
-}
-
-double Signal::getDuration()
-{
-	return (double)waveTable->size() / (double)SAMPLE_RATE;
-}
-
-void Signal::setWaveTable(double freq, double duration)
-{
-	*waveTable = createWaveTable(freq, duration);
-}
-
-std::vector<double> Signal::createWaveTable(double freq, double duration)
-{
-	if (freq == 0) return {};
-	double phase = 0.0;
-	int tableSize = duration * SAMPLE_RATE;
-	std::vector<double> table(tableSize, 0.0);
-	double increment = (&LUT)->size() * freq / (double)SAMPLE_RATE;
-	for (int i = 0; i < tableSize; i++)
-	{
-		table[i] = LUT[(int)phase] * pow(2.71828182845904523536, -(double)i * 2 / 44100.0);
-		phase += increment;
-		if (phase >= (&LUT)->size()) phase -= (double)((&LUT)->size());
-	}
-	return table;
-}
-
-void Signal::append(Signal* signal)
-{
-	if (signal->isEmpty())
-	{
-		return;
-	}
-	for (int i = 0; i < signal->waveTable->size(); i++)
-	{
-		this->waveTable->push_back((*signal->waveTable)[i]);
-	}
 }
 
 void Signal::add(Signal* signal)
@@ -88,15 +41,16 @@ void Signal::add(Signal* signal)
 	}
 }
 
-std::vector<double> Signal::createSineLUT(int size)
+void Signal::append(Signal* signal)
 {
-	std::vector<double> sineLUT;
-	(&sineLUT)->assign(size, 0.0);
-	for (int i = 0; i < size; i++)
+	if (signal->isEmpty())
 	{
-		sineLUT[i] = (double)sin((double)i * M_PI * 2.0 / (double)size);
+		return;
 	}
-	return sineLUT;
+	for (int i = 0; i < signal->waveTable->size(); i++)
+	{
+		this->waveTable->push_back((*signal->waveTable)[i]);
+	}
 }
 
 std::vector<double> Signal::createGuitarLUT(int size)
@@ -121,6 +75,51 @@ std::vector<double> Signal::createGuitarLUT(int size)
 	return guitarLUT;
 }
 
+std::vector<double> Signal::createSineLUT(int size)
+{
+	std::vector<double> sineLUT;
+	(&sineLUT)->assign(size, 0.0);
+	for (int i = 0; i < size; i++)
+	{
+		sineLUT[i] = (double)sin((double)i * M_PI * 2.0 / (double)size);
+	}
+	return sineLUT;
+}
+
+std::vector<double> Signal::createWaveTable(double freq, double duration)
+{
+	if (freq == 0) return {};
+	double phase = 0.0;
+	int tableSize = duration * SAMPLE_RATE;
+	std::vector<double> table(tableSize, 0.0);
+	double increment = (&LUT)->size() * freq / (double)SAMPLE_RATE;
+	for (int i = 0; i < tableSize; i++)
+	{
+		table[i] = LUT[(int)phase] * pow(2.71828182845904523536, -(double)i * 2 / 44100.0);
+		phase += increment;
+		if (phase >= (&LUT)->size()) phase -= (double)((&LUT)->size());
+	}
+	return table;
+}
+
+double Signal::get()
+{
+	return (*waveTable)[phase];
+}
+
+double Signal::getDuration()
+{
+	return (double)waveTable->size() / (double)SAMPLE_RATE;
+}
+
+double Signal::getDuration(std::string input)
+{
+	int eighthCount = std::count(input.begin(), input.end(), '-');
+	int sixtyfourthCount = std::count(input.begin(), input.end(), '.');
+	if (eighthCount == 0 && sixtyfourthCount == 0) return 0.0;
+	return timeSignatureLower * 60.0 / BPM * ((double)sixtyfourthCount * 1.0 / 64.0 + (double)eighthCount * 0.125);
+}
+
 double Signal::getNoteFreq(std::string name)
 {
 	char letter = name[0];
@@ -143,18 +142,20 @@ double Signal::getNoteFreq(std::string name)
 	return freq;
 }
 
-double Signal::getDuration(std::string input)
+double Signal::getPhase()
 {
-	int eighthCount = std::count(input.begin(), input.end(), '-');
-	int sixtyfourthCount = std::count(input.begin(), input.end(), '.');
-	if (eighthCount == 0 && sixtyfourthCount == 0) return 0.0;
-	return timeSignatureLower * 60.0 / BPM * ((double)sixtyfourthCount * 1.0 / 64.0 + (double)eighthCount * 0.125);
+	return phase;
 }
 
-void Signal::setTimeSignatureLowerAndBPM(std::string timeSignatureLower, std::string BPM)
+
+std::vector<double> Signal::getWaveTable()
 {
-	Signal::timeSignatureLower = std::stod(timeSignatureLower);
-	Signal::BPM = std::stod(BPM);
+	return *waveTable;
+}
+
+void Signal::incrementPhase()
+{
+	phase++;
 }
 
 bool Signal::isEmpty()
@@ -173,4 +174,15 @@ void Signal::normalize()
 	{
 		(*waveTable)[i] /= max;
 	}
+}
+
+void Signal::setTimeSignatureLowerAndBPM(std::string timeSignatureLower, std::string BPM)
+{
+	Signal::timeSignatureLower = std::stod(timeSignatureLower);
+	Signal::BPM = std::stod(BPM);
+}
+
+void Signal::setWaveTable(double freq, double duration)
+{
+	*waveTable = createWaveTable(freq, duration);
 }

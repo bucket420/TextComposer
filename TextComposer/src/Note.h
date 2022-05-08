@@ -8,6 +8,7 @@ public:
 
 private:
 	std::string note;
+
 	void setWaveTable();
 
 };

@@ -65,9 +65,9 @@ int TextToAudio::paCallback(const void* inputBuffer, void* outputBuffer,
 
     for (i = 0; i < framesPerBuffer; i++)
     {
-        *out++ = data->get(data->phase);  /* left */
-        *out++ = data->get(data->phase);  /* right */
-        data->phase += increment;
+        *out++ = data->get();  /* left */
+        *out++ = data->get();  /* right */
+        data->incrementPhase();
     }
 
     return paContinue;

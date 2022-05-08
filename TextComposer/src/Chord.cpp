@@ -9,12 +9,6 @@ Chord::Chord(std::string chord, std::array<double, 25> scale, std::string scaleT
 	setWaveTable();
 }
 
-std::string Chord::toUpper(std::string string)
-{
-	std::transform(string.begin(), string.end(), string.begin(), std::toupper);
-	return string;
-}
-
 std::string Chord::getChordSymbol(std::string chord)
 {
 	char lastChar = chord[chord.size() - 1];
@@ -64,4 +58,10 @@ void Chord::setWaveTable()
 		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 7], duration)).get());
 	}
 	this->normalize();
+}
+
+std::string Chord::toUpper(std::string string)
+{
+	std::transform(string.begin(), string.end(), string.begin(), std::toupper);
+	return string;
 }

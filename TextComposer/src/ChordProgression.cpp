@@ -9,6 +9,27 @@ ChordProgression::ChordProgression(std::string progression, std::string key, std
 	setWaveTable();
 }
 
+std::array<double, 25> ChordProgression::createTwoOctaveScale(std::string key)
+{
+	if (std::find(OCTAVE, OCTAVE + 7, key[0]) == std::end(OCTAVE)) return {};
+	std::array<double, 25> twoOctaveScale;
+	double firstNote = getNoteFreq(key + '4') * pow(2.0, -1.0 / 12.0);
+	if (key.size() > 2 || ((key.size() == 2) && key[1] != '#' && key[1] != 'b') || key.size() == 0) return {};
+	if (key[1] == '#')
+	{
+		firstNote *= pow(2.0, 1.0 / 12.0);
+	}
+	if (key[1] == 'b')
+	{
+		firstNote *= pow(2.0, -1.0 / 12.0);
+	}
+	for (int i = 0; i < 25; i++)
+	{
+		twoOctaveScale[i] = firstNote * pow(2.0, (double)i / 12.0);
+	}
+	return twoOctaveScale;
+}
+
 std::vector<int> ChordProgression::getChordIndexes()
 {
 	std::vector<int> chordIndexes;
@@ -40,27 +61,6 @@ std::vector<std::string> ChordProgression::getChords()
 		}
 		chords[i] = progression.substr(chordIndexes[i], (long long)chordIndexes[i + 1] - chordIndexes[i]);
 	}
-}
-
-std::array<double, 25> ChordProgression::createTwoOctaveScale(std::string key)
-{
-	if (std::find(OCTAVE, OCTAVE + 7, key[0]) == std::end(OCTAVE)) return {};
-	std::array<double, 25> twoOctaveScale;
-	double firstNote = getNoteFreq(key + '4') * pow(2.0, -1.0 / 12.0);
-	if (key.size() > 2 || ((key.size() == 2) && key[1] != '#' && key[1] != 'b') || key.size() == 0) return {};
-	if (key[1] == '#')
-	{
-		firstNote *= pow(2.0, 1.0 / 12.0);
-	}
-	if (key[1] == 'b')
-	{
-		firstNote *= pow(2.0, -1.0 / 12.0);
-	}
-	for (int i = 0; i < 25; i++)
-	{
-		twoOctaveScale[i] = firstNote * pow(2.0, (double)i / 12.0);
-	}
-	return twoOctaveScale;
 }
 
 void ChordProgression::setWaveTable()

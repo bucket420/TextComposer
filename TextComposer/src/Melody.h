@@ -8,6 +8,7 @@ public:
 
 private:
 	std::string melody;
+
 	std::vector<int> getNoteIndexes();
 	std::vector<std::string> getNotes();
 	void setWaveTable();

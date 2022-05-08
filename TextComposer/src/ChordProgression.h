@@ -11,8 +11,8 @@ private:
 	std::string key;
 	std::string scaleType;
 
+	std::array<double, 25> createTwoOctaveScale(std::string key);
 	std::vector<int> getChordIndexes();
 	std::vector<std::string> getChords();
-	std::array<double, 25> createTwoOctaveScale(std::string key);
 	void setWaveTable();
 };
