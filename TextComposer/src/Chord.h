@@ -9,9 +9,10 @@ public:
 
 private:
 	std::string chord;
-
-	static std::string getRomanNumber(std::string chord);
+	std::array<double, 25> scale;
+	std::string scaleType;
+	static std::string getChordSymbol(std::string chord);
 	static std::string toUpper(std::string string);
-	void setWaveTable(std::array<double, 25> scale, std::string scaleType);
+	void setWaveTable();
 
 };

@@ -1,17 +1,6 @@
 #pragma once
 #include "Signal.h"
-#include "Melody.h"
-#include "ChordProgression.h"
 #include "portaudio.h"
-#include "sciter-x.h"
-#include "sciter-x-window.hpp"
-#include <math.h>
-#include <map>
-#include <string>
-#include <vector>
-#include <functional>
-#include <chrono>
-#include <thread>
 #include <memory>
 
 class TextToAudio
@@ -28,6 +17,7 @@ public:
         const PaStreamCallbackTimeInfo* timeInfo,
         PaStreamCallbackFlags statusFlags,
         void* userData);
+    bool isPlaying();
     void start();
     void stop();
 

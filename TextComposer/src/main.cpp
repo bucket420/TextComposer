@@ -1,16 +1,8 @@
+#pragma once
 #include "TextToAudio.h"
-#include "Signal.h"
-#include "Melody.h"
-#include "ChordProgression.h"
 #include "portaudio.h"
 #include "sciter-x.h"
 #include "sciter-x-window.hpp"
-#include <math.h>
-#include <map>
-#include <string>
-#include <vector>
-#include <functional>
-#include <chrono>
 #include <thread>
 
 class frame : public sciter::window {
@@ -37,6 +29,10 @@ public:
     // function exposed to script:
     void play(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
     {
+        if ((&Player)->isPlaying())
+        {
+            return;
+        }
         Signal::setTimeSignatureLowerAndBPM(timeSignatureLower, BPM);
         (&Player)->setWave(mode, key, scaleType, input);
         validInput = (&Player)->getDuration() > 0;

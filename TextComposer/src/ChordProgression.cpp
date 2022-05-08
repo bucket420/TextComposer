@@ -26,7 +26,6 @@ std::vector<int> ChordProgression::getChordIndexes()
 	return chordIndexes;
 }
 
-
 std::vector<std::string> ChordProgression::getChords()
 {
 	std::vector<int> chordIndexes = getChordIndexes();
@@ -74,7 +73,7 @@ void ChordProgression::setWaveTable()
 	}
 	for (int i = 0; i < chordList.size(); i++)
 	{
-		this->append(std::unique_ptr<Signal>(new Chord(chordList[i], scale, scaleType)));
+		this->append(std::unique_ptr<Signal>(new Chord(chordList[i], scale, scaleType)).get());
 	}
 
 }

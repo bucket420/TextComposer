@@ -63,7 +63,7 @@ std::vector<double> Signal::createWaveTable(double freq, double duration)
 	return table;
 }
 
-void Signal::append(std::unique_ptr<Signal> signal)
+void Signal::append(Signal* signal)
 {
 	if (signal->isEmpty())
 	{
@@ -75,7 +75,7 @@ void Signal::append(std::unique_ptr<Signal> signal)
 	}
 }
 
-void Signal::add(std::unique_ptr<Signal> signal)
+void Signal::add(Signal* signal)
 {
 	if (signal->isEmpty())
 	{

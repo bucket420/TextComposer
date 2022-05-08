@@ -1,4 +1,9 @@
+#pragma once
 #include "TextToAudio.h"
+#include "Melody.h"
+#include "ChordProgression.h"
+#include <chrono>
+
 
 #define FRAMES_PER_BUFFER  (64)
 
@@ -23,11 +28,10 @@ private:
     PaError _result;
 };
 
-struct Data
+bool TextToAudio::isPlaying()
 {
-    std::vector<double> waveTable;
-    int phase = 0;
-};
+    return Pa_IsStreamActive(stream) == 1;
+}
 
 void TextToAudio::setWave(int mode, std::string key, std::string scaleType, std::string input)
 {
@@ -55,14 +59,14 @@ int TextToAudio::paCallback(const void* inputBuffer, void* outputBuffer,
     (void)statusFlags;
     (void)inputBuffer;
 
-    Data* data = (Data*)userData;
+    Signal* data = (Signal*)userData;
     double duration = framesPerBuffer / Signal::SAMPLE_RATE;
     int increment = 1;
 
     for (i = 0; i < framesPerBuffer; i++)
     {
-        *out++ = data->waveTable[data->phase];  /* left */
-        *out++ = data->waveTable[data->phase];  /* right */
+        *out++ = data->get(data->phase);  /* left */
+        *out++ = data->get(data->phase);  /* right */
         data->phase += increment;
     }
 
@@ -85,9 +89,6 @@ void TextToAudio::start()
         return;
     }
 
-    Data data;
-    data.waveTable = signal->getWaveTable();
-
     int err = Pa_OpenDefaultStream(&stream,
         0,          /* no input channels */
         2,          /* stereo output */
@@ -95,7 +96,7 @@ void TextToAudio::start()
         Signal::SAMPLE_RATE,
         512,        /* frames per buffer */
         paCallback,
-        &data);
+        signal.get());
 
     if (err != paNoError)
     {

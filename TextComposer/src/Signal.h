@@ -14,15 +14,16 @@ public:
 	const static double FIRST_OCTAVE_FREQ[7];
 	const static std::string ROMAN_NUMBERS[7];
 	const static std::vector<double> LUT;
-
 	static double timeSignatureLower;
 	static double BPM;
+
+	int phase = 0;
 
 	Signal();
 	Signal(double freq, double duration);
 	
-	void add(std::unique_ptr<Signal> signal);
-	void append(std::unique_ptr<Signal> signal);
+	void add(Signal* signal);
+	void append(Signal* signal);
 	void normalize();
 	void setWaveTable(double freq, double duration);
 	bool isEmpty();
