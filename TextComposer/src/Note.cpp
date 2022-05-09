@@ -3,10 +3,10 @@
 Note::Note(std::string note)
 {
 	this->note = note;
-	setWaveTable();
+	setWavetable();
 }
 
-void Note::setWaveTable()
+void Note::setWavetable()
 {
 	std::string name;
 	double duration = getDuration(note);
@@ -19,5 +19,5 @@ void Note::setWaveTable()
 	{
 		name = note.substr(0, 2);
 	}
-	*this->waveTable = createWaveTable(getNoteFreq(name), duration);	
+	*this->waveTable = createWavetable(getNoteFreq(name), duration);	
 }

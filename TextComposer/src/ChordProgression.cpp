@@ -1,12 +1,13 @@
-#include "ChordProgression.h"
+#pragma once
 #include <memory>
+#include "ChordProgression.h"
 
 ChordProgression::ChordProgression(std::string progression, std::string key, std::string scaleType)
 {
 	this->progression = progression;
 	this->key = key;
 	this->scaleType = scaleType;
-	setWaveTable();
+	setWavetable();
 }
 
 std::array<double, 25> ChordProgression::createTwoOctaveScale(std::string key)
@@ -63,7 +64,7 @@ std::vector<std::string> ChordProgression::getChords()
 	}
 }
 
-void ChordProgression::setWaveTable()
+void ChordProgression::setWavetable()
 {
 	std::vector<std::string> chordList = getChords();
 	std::array<double, 25> scale = createTwoOctaveScale(key);

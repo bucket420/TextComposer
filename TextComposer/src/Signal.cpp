@@ -1,9 +1,8 @@
 #pragma once
-#include <math.h>
-#include <vector>
-#include <iostream>
 #include <algorithm>
+#include <math.h>
 #include <memory>
+#include <vector>
 #include "Signal.h"
 
 #define M_PI  (3.14159265)
@@ -25,7 +24,7 @@ Signal::Signal()
 
 Signal::Signal(double freq, double duration)
 {
-	*waveTable = createWaveTable(freq, duration);
+	*waveTable = createWavetable(freq, duration);
 }
 
 void Signal::add(Signal* signal)
@@ -86,7 +85,7 @@ std::vector<double> Signal::createSineLUT(int size)
 	return sineLUT;
 }
 
-std::vector<double> Signal::createWaveTable(double freq, double duration)
+std::vector<double> Signal::createWavetable(double freq, double duration)
 {
 	if (freq == 0) return {};
 	double phase = 0.0;
@@ -148,7 +147,7 @@ double Signal::getPhase()
 }
 
 
-std::vector<double> Signal::getWaveTable()
+std::vector<double> Signal::getWavetable()
 {
 	return *waveTable;
 }
@@ -182,7 +181,7 @@ void Signal::setTimeSignatureLowerAndBPM(std::string timeSignatureLower, std::st
 	Signal::BPM = std::stod(BPM);
 }
 
-void Signal::setWaveTable(double freq, double duration)
+void Signal::setWavetable(double freq, double duration)
 {
-	*waveTable = createWaveTable(freq, duration);
+	*waveTable = createWavetable(freq, duration);
 }

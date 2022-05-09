@@ -4,7 +4,7 @@
 Melody::Melody(std::string melody)
 {
 	this->melody = melody;
-	setWaveTable();
+	setWavetable();
 }
 
 std::vector<int> Melody::getNoteIndexes()
@@ -36,7 +36,7 @@ std::vector<std::string> Melody::getNotes()
 	}
 }
 
-void Melody::setWaveTable()
+void Melody::setWavetable()
 {
 	std::vector<std::string> noteList = getNotes();
 	if (noteList.empty()) return;

@@ -1,9 +1,8 @@
 #pragma once
-#include "TextToAudio.h"
-#include "Melody.h"
-#include "ChordProgression.h"
 #include <chrono>
-
+#include "ChordProgression.h"
+#include "Melody.h"
+#include "TextToAudio.h"
 
 #define FRAMES_PER_BUFFER  (64)
 

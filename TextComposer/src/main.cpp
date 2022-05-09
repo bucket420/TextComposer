@@ -1,9 +1,9 @@
 #pragma once
-#include "TextToAudio.h"
+#include <thread>
 #include "portaudio.h"
 #include "sciter-x.h"
 #include "sciter-x-window.hpp"
-#include <thread>
+#include "TextToAudio.h"
 
 class frame : public sciter::window {
 public:

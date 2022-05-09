@@ -1,12 +1,13 @@
-#include "Chord.h"
+#pragma once
 #include <algorithm>
+#include "Chord.h"
 
 Chord::Chord(std::string chord, std::array<double, 25> scale, std::string scaleType)
 {
 	this->chord = chord;
 	this->scale = scale;
 	this->scaleType = scaleType;
-	setWaveTable();
+	setWavetable();
 }
 
 std::string Chord::getChordSymbol(std::string chord)
@@ -21,7 +22,7 @@ std::string Chord::getChordSymbol(std::string chord)
 	return chord;
 }
 
-void Chord::setWaveTable()
+void Chord::setWavetable()
 {
 	double duration = getDuration(chord);
 	std::string chordSymbol = getChordSymbol(chord);
@@ -35,7 +36,7 @@ void Chord::setWaveTable()
 	if (chord[chordSymbol.size()] == 'b') step -= 1;
 	if (chord[chordSymbol.size()] == '#') step += 1;
 
-	this->Signal::setWaveTable(scale[step], duration);
+	this->Signal::setWavetable(scale[step], duration);
 
 	if (chord[chordSymbol.size()] == 'd' || (chord.size() > chordSymbol.size() + 1 && chord[chordSymbol.size() + 1] == 'd'))
 	{
