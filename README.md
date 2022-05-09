@@ -18,7 +18,7 @@ If you want to compile it yourself, just clone this repo, open ***TextComposer.s
 - The real duration (in seconds) will be calculated based on your inputs in '**Time signature**' and '**BPM**'.
 ### II. Chords and notes:
 There are currently two modes available: 
-1. Chord Progression Formula:
+1. Chord Progression:
 	- For this mode you'd choose a scale and use Roman numerals - from one to seven - to represent chords. Upper case letters indicate major chords, while lowercase letters signify minor chords. '**b**' and '**#**' imply flat and sharp, respectively. Add '**d**' and '**a**' at the end for diminished and augmented chords. Currently only triads and major/minor scales are supported.
 	- Add duration symbols at the end of each chord and chain the chords together to complete a chord progression.
 	- Examples: **E Major I--V--vi--IV--**, **A Minor i----VI----III----VII----**
