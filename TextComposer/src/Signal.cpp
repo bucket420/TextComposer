@@ -10,12 +10,12 @@
 double Signal::BPM = 120.0;
 double Signal::timeSignatureLower = 4.0;
 
-const double Signal::FIRST_OCTAVE_FREQ[7] = { 16.35, 18.35, 20.60, 21.83, 24.50, 27.50, 30.87 };
+const double Signal::FIRST_OCTAVE_FREQ[7] = {16.35, 18.35, 20.60, 21.83, 24.50, 27.50, 30.87};
 const std::vector<double> Signal::LUT = createGuitarLUT(2048);
-const int Signal::MAJOR_SCALE_STEPS[7] = { 1, 3, 5, 6, 8, 10, 12 };
-const int Signal::MINOR_SCALE_STEPS[7] = { 1, 3, 4, 6, 8, 9, 11 };
-const char Signal::OCTAVE[7] = { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
-const std::string Signal::ROMAN_NUMBERS[7] = { "I", "II", "III", "IV", "V", "VI", "VII" };
+const int Signal::MAJOR_SCALE_STEPS[7] = {1, 3, 5, 6, 8, 10, 12};
+const int Signal::MINOR_SCALE_STEPS[7] = {1, 3, 4, 6, 8, 9, 11};
+const char Signal::OCTAVE[7] = {'C', 'D', 'E', 'F', 'G', 'A', 'B'};
+const std::string Signal::ROMAN_NUMBERS[7] = {"I", "II", "III", "IV", "V", "VI", "VII"};
 
 Signal::Signal()
 {
@@ -24,7 +24,7 @@ Signal::Signal()
 
 Signal::Signal(double freq, double duration)
 {
-	*waveTable = createWavetable(freq, duration);
+	setWavetable(freq, duration);
 }
 
 void Signal::add(Signal* signal)
@@ -85,22 +85,6 @@ std::vector<double> Signal::createSineLUT(int size)
 	return sineLUT;
 }
 
-std::vector<double> Signal::createWavetable(double freq, double duration)
-{
-	if (freq == 0) return {};
-	double phase = 0.0;
-	int tableSize = duration * SAMPLE_RATE;
-	std::vector<double> table(tableSize, 0.0);
-	double increment = (&LUT)->size() * freq / (double)SAMPLE_RATE;
-	for (int i = 0; i < tableSize; i++)
-	{
-		table[i] = LUT[(int)phase] * pow(2.71828182845904523536, -(double)i * 2 / 44100.0);
-		phase += increment;
-		if (phase >= (&LUT)->size()) phase -= (double)((&LUT)->size());
-	}
-	return table;
-}
-
 double Signal::get()
 {
 	return (*waveTable)[phase];
@@ -146,7 +130,6 @@ double Signal::getPhase()
 	return phase;
 }
 
-
 std::vector<double> Signal::getWavetable()
 {
 	return *waveTable;
@@ -183,5 +166,15 @@ void Signal::setTimeSignatureLowerAndBPM(std::string timeSignatureLower, std::st
 
 void Signal::setWavetable(double freq, double duration)
 {
-	*waveTable = createWavetable(freq, duration);
+	if (freq == 0) return;
+	double phase = 0.0;
+	int tableSize = duration * SAMPLE_RATE;
+	double increment = (&LUT)->size() * freq / (double)SAMPLE_RATE;
+	*waveTable = std::vector<double>(tableSize, 0.0);
+	for (int i = 0; i < tableSize; i++)
+	{
+		(*waveTable)[i] = LUT[(int)phase] * pow(2.71828182845904523536, -(double)i * 2 / 44100.0);
+		phase += increment;
+		if (phase >= (&LUT)->size()) phase -= (double)((&LUT)->size());
+	}
 }

@@ -85,9 +85,6 @@ protected:
 	/* Create a Lookup Table for the signal that guitar produces */
 	static std::vector<double> createSineLUT(int size);
 
-	/* Create a Lookup Table a sine wave */
-	static std::vector<double> createWavetable(double freq, double duration);
-
 	/* Get the intended duration from an input */
 	static double getDuration(std::string input);
 
