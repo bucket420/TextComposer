@@ -29,20 +29,20 @@ public:
     // function exposed to script:
     void play(int mode, std::string key, std::string scaleType, std::string input, std::string timeSignatureLower, std::string BPM)
     {
-        if ((&Player)->isPlaying())
+        if (Player.isPlaying())
         {
             return;
         }
         Signal::setTimeSignatureLowerAndBPM(timeSignatureLower, BPM);
-        (&Player)->setWave(mode, key, scaleType, input);
-        validInput = (&Player)->getDuration() > 0;
+        Player.setWave(mode, key, scaleType, input);
+        validInput = Player.getDuration() > 0;
         std::thread t1(&frame::start, this);
         t1.detach();
     }
 
     void stop()
     {
-        (&Player)->stop();
+        Player.stop();
     }
 
     double isValid()

@@ -55,7 +55,7 @@ void Signal::append(Signal* signal)
 std::vector<double> Signal::createGuitarLUT(int size)
 {
 	std::vector<double> guitarLUT;
-	(&guitarLUT)->assign(size, 0.0);
+	guitarLUT.assign(size, 0.0);
 	for (int i = 0; i < size; i++)
 	{
 		guitarLUT[i] = 0.065 * (double)sin((double)i * M_PI * 2.0 / (double)size)
@@ -66,7 +66,7 @@ std::vector<double> Signal::createGuitarLUT(int size)
 			+ 0.003 * (double)sin((double)i * M_PI * 14.0 / (double)size)
 			+ 0.00076 * (double)sin((double)i * M_PI * 16.0 / (double)size);
 	}
-	double max = *max_element((&guitarLUT)->begin(), (&guitarLUT)->end());
+	double max = *max_element(guitarLUT.begin(), guitarLUT.end());
 	for (int i = 0; i < size; i++)
 	{
 		guitarLUT[i] /= max;
@@ -77,7 +77,7 @@ std::vector<double> Signal::createGuitarLUT(int size)
 std::vector<double> Signal::createSineLUT(int size)
 {
 	std::vector<double> sineLUT;
-	(&sineLUT)->assign(size, 0.0);
+	sineLUT.assign(size, 0.0);
 	for (int i = 0; i < size; i++)
 	{
 		sineLUT[i] = (double)sin((double)i * M_PI * 2.0 / (double)size);
@@ -169,12 +169,12 @@ void Signal::setWavetable(double freq, double duration)
 	if (freq == 0) return;
 	double phase = 0.0;
 	int tableSize = duration * SAMPLE_RATE;
-	double increment = (&LUT)->size() * freq / (double)SAMPLE_RATE;
+	double increment = LUT.size() * freq / (double)SAMPLE_RATE;
 	*waveTable = std::vector<double>(tableSize, 0.0);
 	for (int i = 0; i < tableSize; i++)
 	{
 		(*waveTable)[i] = LUT[(int)phase] * pow(2.71828182845904523536, -(double)i * 2 / 44100.0);
 		phase += increment;
-		if (phase >= (&LUT)->size()) phase -= (double)((&LUT)->size());
+		if (phase >= LUT.size()) phase -= (double) LUT.size();
 	}
 }

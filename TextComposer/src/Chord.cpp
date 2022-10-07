@@ -30,6 +30,7 @@ void Chord::setWavetable()
 	if (iterator == std::end(ROMAN_NUMBERS) || duration == 0 || chordSymbol.empty()) return;
 	int index = iterator - ROMAN_NUMBERS;
 	int step;
+
 	if (scaleType == "major") step = MAJOR_SCALE_STEPS[index];
 	if (scaleType == "minor") step = MINOR_SCALE_STEPS[index];
 
