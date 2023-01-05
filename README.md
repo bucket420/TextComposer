@@ -2,7 +2,7 @@
 ## Description
 **TextComposer** is a desktop app that plays chord progressions and melodies based on your input text. It allows you to quickly test musical ideas with a simple GUI and syntax. It's especially useful when you want to experiment with chord progressions.
 
-The output sound does not come from prerecorded audio files, but is generated directly by the soundcard using wavetable synthesis, with the help of [PortAudio library](http://portaudio.com/). The GUI is made with HTML, CSS, and Javascript using [Sciter.JS](https://github.com/c-smile/sciter-js-sdk).
+The output sound does not come from prerecorded audio files, but is generated directly by the soundcard using wavetable synthesis, with the help of [the PortAudio library](http://portaudio.com/). The GUI is made with HTML, CSS, and Javascript using [Sciter.JS](https://github.com/c-smile/sciter-js-sdk).
 
 ![uipreview](https://user-images.githubusercontent.com/72154050/167323113-0533ac90-51f3-4e14-ada8-f505fe08dd11.png)
 ## Installation
