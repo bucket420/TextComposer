@@ -100,6 +100,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)release</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -149,21 +150,22 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)portaudio_x64\include; $(ProjectDir)sciter-sdk\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\portaudio\include; $(ProjectDir)libs\sciter\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)portaudio_x64\lib\portaudio_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)libs\sciter\bin\sciter.lib;$(ProjectDir)libs\portaudio\bin\portaudio_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(ProjectDir)portaudio_x64\lib\portaudio_x64.dll $(TargetDir) &amp; copy $(ProjectDir)sciter-sdk\bin\windows\x64 $(TargetDir)</Command>
+      <Command>copy $(ProjectDir)libs\portaudio\bin\portaudio_x64.dll $(TargetDir) &amp; copy $(ProjectDir)libs\sciter\bin\sciter.dll $(TargetDir)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>$(ProjectDir)sciter-sdk\bin\windows\packfolder.exe $(ProjectDir)ui $(ProjectDir)src/resources.cpp -v "resources"</Command>
+      <Command>$(ProjectDir)libs\sciter\bin\packfolder.exe $(ProjectDir)ui $(ProjectDir)src/resources.cpp -v "resources"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

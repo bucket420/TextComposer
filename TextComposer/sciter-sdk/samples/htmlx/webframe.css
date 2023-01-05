@@ -1,3 +1,0 @@
-
-frame[type="web"],
-iframe[type="web"] { prototype: WebFrame url(htmlx-frame.js); }
