@@ -1,12 +1,12 @@
 # TextComposer
 ## Description
-**TextComposer** is an application that plays chord progressions and melodies based on your input text. It allows you to quickly test musical ideas with a simple GUI and syntax. It's especially useful when you want to experiment with chord progressions.
+**TextComposer** is a desktop app that plays chord progressions and melodies based on your input text. It allows you to quickly test musical ideas with a simple GUI and syntax. It's especially useful when you want to experiment with chord progressions.
 
-The output sound does not come from prerecorded audio files, but is generated directly by the soundcard using wavetable synthesis, with the help of [PortAudio library](http://portaudio.com/). The GUI is made with HTML, CSS, and Javascript using [Sciter.JS](https://github.com/c-smile/sciter-js-sdk).
+The output sound does not come from prerecorded audio files, but is generated directly by the soundcard using wavetable synthesis, with the help of [the PortAudio library](http://portaudio.com/). The GUI is made with HTML, CSS, and Javascript using [Sciter.JS](https://github.com/c-smile/sciter-js-sdk).
 
 ![uipreview](https://user-images.githubusercontent.com/72154050/167323113-0533ac90-51f3-4e14-ada8-f505fe08dd11.png)
 ## Installation
-You can download the compiled application [here](https://github.com/bucket420/TextComposer/releases) (the *.rar* file).  
+You can download the compiled app [here](https://github.com/bucket420/TextComposer/releases) (the *.rar* file). It's only been tested on Windows 10. I'm not sure if it works on MacOS and Linux.
 
 If you want to compile it yourself, just clone this repo, open ***TextComposer.sln*** with **VisualStudio**, and click **Build Solution**. All external libraries and necessary configurations are already included. 
 ## Syntax
