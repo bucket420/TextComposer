@@ -1,6 +1,8 @@
 #pragma once
+#include <array>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 class Signal
@@ -12,23 +14,14 @@ public:
 	/* The lower part of time signature */
 	static double timeSignatureLower;
 
-	/* Frequency of every note in the first octave */
-	const static double FIRST_OCTAVE_FREQ[7];
-
 	/* The Lookup Table used to generate signals */
 	const static std::vector<double> LUT;
 
-	/* The position of each note in the major scale (1 means the key, 3 means 2 half-steps from the key, etc. */
-	const static int MAJOR_SCALE_STEPS[7];
+	/* Mapping the musical alphabet to frequencies in the first octave*/
+	const static std::unordered_map<char, double> FIRST_OCTAVE_FREQ;
 
-	/* The position of each note in the minor scale (1 means the key, 3 means 2 half-steps from the key, etc.) */
-	const static int MINOR_SCALE_STEPS[7];
-
-	/* The musical alphabet */
-	const static char OCTAVE[7];
-
-	/* Roman numbers from 1 to 7 */
-	const static std::string ROMAN_NUMBERS[7];
+	/* Mapping Roman numbers representing chords to positions of their root notes in the 12-tone (chromatic) scale*/
+	const static std::unordered_map<std::string, std::array<int, 2>> ROMAN_NUMBERS;
 
 	/* Sample rate */
 	const static int SAMPLE_RATE = 44100;
@@ -71,10 +64,10 @@ protected:
 	int phase = 0;
 
 	/* Add a signal to this signal */
-	void add(Signal* signal);
+	void add(Signal& signal);
 
 	/* Append a signal to this signal */
-	void append(Signal* signal);
+	void append(Signal& signal);
 
 	/* Normalize the signal so that the highest amplitude is 1 */
 	void normalize();

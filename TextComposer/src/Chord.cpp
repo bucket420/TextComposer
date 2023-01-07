@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <stdexcept>
 #include "Chord.h"
 
 Chord::Chord(std::string chord, std::array<double, 25> scale, std::string scaleType)
@@ -26,39 +27,52 @@ void Chord::setWavetable()
 {
 	double duration = getDuration(chord);
 	std::string chordSymbol = getChordSymbol(chord);
-	const std::string* iterator = std::find(ROMAN_NUMBERS, ROMAN_NUMBERS + 7, toUpper(chordSymbol));
-	if (iterator == std::end(ROMAN_NUMBERS) || duration == 0 || chordSymbol.empty()) return;
-	int index = iterator - ROMAN_NUMBERS;
-	int step;
-
-	if (scaleType == "major") step = MAJOR_SCALE_STEPS[index];
-	if (scaleType == "minor") step = MINOR_SCALE_STEPS[index];
+	int step = 0;
+	try 
+	{
+		if (scaleType == "major")
+		{
+			step = ROMAN_NUMBERS.at(toUpper(chordSymbol))[0];
+		}
+		else if (scaleType == "minor")
+		{
+			step = ROMAN_NUMBERS.at(toUpper(chordSymbol))[1];
+		}
+	}
+	catch (const std::out_of_range)
+	{
+		return;
+	}
 
 	if (chord[chordSymbol.size()] == 'b') step -= 1;
 	if (chord[chordSymbol.size()] == '#') step += 1;
 
 	this->Signal::setWavetable(scale[step], duration);
+	Signal secondNote;
+	Signal thirdNote;
 
 	if (chord[chordSymbol.size()] == 'd' || (chord.size() > chordSymbol.size() + 1 && chord[chordSymbol.size() + 1] == 'd'))
 	{
-		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 3], duration)).get());
-		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 6], duration)).get());
+		secondNote = Signal(scale[step + 3], duration);
+		thirdNote = Signal(scale[step + 6], duration);
 	}
 	else if (chord[chordSymbol.size()] == 'a' || (chord.size() > chordSymbol.size() + 1 && chord[chordSymbol.size() + 1] == 'a'))
 	{
-		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 4], duration)).get());
-		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 8], duration)).get());
+		secondNote = Signal(scale[step + 4], duration);
+		thirdNote = Signal(scale[step + 8], duration);
 	}
 	else if (isupper(chord[0]))
 	{
-		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 4], duration)).get());
-		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 7], duration)).get());
+		secondNote = Signal(scale[step + 4], duration);
+		thirdNote = Signal(scale[step + 7], duration);
 	}
 	else if (islower(chord[0]))
 	{
-		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 3], duration)).get());
-		this->add(std::unique_ptr<Signal>(new Signal(scale[step + 7], duration)).get());
+		secondNote = Signal(scale[step + 3], duration);
+		thirdNote = Signal(scale[step + 7], duration);
 	}
+	this->add(secondNote);
+	this->add(thirdNote);
 	this->normalize();
 }
 

@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <math.h>
 #include <memory>
+#include <stdexcept>
 #include <vector>
 #include "Signal.h"
 
@@ -10,12 +11,25 @@
 double Signal::BPM = 120.0;
 double Signal::timeSignatureLower = 4.0;
 
-const double Signal::FIRST_OCTAVE_FREQ[7] = {16.35, 18.35, 20.60, 21.83, 24.50, 27.50, 30.87};
 const std::vector<double> Signal::LUT = createGuitarLUT(2048);
-const int Signal::MAJOR_SCALE_STEPS[7] = {1, 3, 5, 6, 8, 10, 12};
-const int Signal::MINOR_SCALE_STEPS[7] = {1, 3, 4, 6, 8, 9, 11};
-const char Signal::OCTAVE[7] = {'C', 'D', 'E', 'F', 'G', 'A', 'B'};
-const std::string Signal::ROMAN_NUMBERS[7] = {"I", "II", "III", "IV", "V", "VI", "VII"};
+const std::unordered_map<char, double> Signal::FIRST_OCTAVE_FREQ = {
+	{'C', 16.35},
+	{'D', 18.35},
+	{'E', 20.60},
+	{'F', 21.83},
+	{'G', 24.50},
+	{'A', 27.50},
+	{'B', 30.87}
+};
+const std::unordered_map<std::string, std::array<int, 2>> Signal::ROMAN_NUMBERS = {
+	{"I", {1, 1}},
+	{"II", {3, 3}},
+	{"III", {5, 4}},
+	{"IV", {6, 6}},
+	{"V", {8, 8}},
+	{"VI", {10, 9}},
+	{"VII", {12, 11}}
+};
 
 Signal::Signal()
 {
@@ -27,28 +41,28 @@ Signal::Signal(double freq, double duration)
 	setWavetable(freq, duration);
 }
 
-void Signal::add(Signal* signal)
+void Signal::add(Signal& signal)
 {
-	if (signal->isEmpty())
+	if (signal.isEmpty())
 	{
 		return;
 	}
-	if (this->waveTable->size() < signal->waveTable->size()) this->waveTable->resize(signal->waveTable->size(), 0.0);
+	if (this->waveTable->size() < signal.waveTable->size()) this->waveTable->resize(signal.waveTable->size(), 0.0);
 	for (int i = 0; i < this->waveTable->size(); i++)
 	{
-		(*this->waveTable)[i] += (*signal->waveTable)[i];
+		(*this->waveTable)[i] += (*signal.waveTable)[i];
 	}
 }
 
-void Signal::append(Signal* signal)
+void Signal::append(Signal& signal)
 {
-	if (signal->isEmpty())
+	if (signal.isEmpty())
 	{
 		return;
 	}
-	for (int i = 0; i < signal->waveTable->size(); i++)
+	for (int i = 0; i < signal.waveTable->size(); i++)
 	{
-		this->waveTable->push_back((*signal->waveTable)[i]);
+		this->waveTable->push_back((*signal.waveTable)[i]);
 	}
 }
 
@@ -107,20 +121,27 @@ double Signal::getNoteFreq(std::string name)
 {
 	char letter = name[0];
 	int octaveNumber = name[name.length() - 1] - '0';
-	const char* iterator = std::find(Signal::OCTAVE, Signal::OCTAVE + 7, letter);
-	int index = iterator - Signal::OCTAVE;
+	int first_freq;
+	try
+	{
+		first_freq = FIRST_OCTAVE_FREQ.at(letter);
+	}
+	catch (const std::exception&)
+	{
+		return 0.0;
+	}
 	double freq = 0;
 	if (name.length() == 2)
 	{
-		freq = Signal::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber);
+		freq = first_freq * pow(2.0, (double)octaveNumber);
 	}
 	if (name[1] == '#')
 	{
-		freq = Signal::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber + 1.0 / 12.0);
+		freq = first_freq * pow(2.0, (double)octaveNumber + 1.0 / 12.0);
 	}
 	if (name[1] == 'b')
 	{
-		freq = Signal::FIRST_OCTAVE_FREQ[index] * pow(2.0, (double)octaveNumber - 1.0 / 12.0);
+		freq = first_freq * pow(2.0, (double)octaveNumber - 1.0 / 12.0);
 	}
 	return freq;
 }

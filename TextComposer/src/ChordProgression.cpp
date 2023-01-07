@@ -12,7 +12,6 @@ ChordProgression::ChordProgression(std::string progression, std::string key, std
 
 std::array<double, 25> ChordProgression::createTwoOctaveScale(std::string key)
 {
-	if (std::find(OCTAVE, OCTAVE + 7, key[0]) == std::end(OCTAVE)) return {};
 	std::array<double, 25> twoOctaveScale;
 	double firstNote = getNoteFreq(key + '4') * pow(2.0, -1.0 / 12.0);
 	if (key.size() > 2 || ((key.size() == 2) && key[1] != '#' && key[1] != 'b') || key.size() == 0) return {};
@@ -74,7 +73,8 @@ void ChordProgression::setWavetable()
 	}
 	for (int i = 0; i < chordList.size(); i++)
 	{
-		this->append(std::unique_ptr<Signal>(new Chord(chordList[i], scale, scaleType)).get());
+		Chord chord = Chord(chordList[i], scale, scaleType);
+		this->append(chord);
 	}
 
 }

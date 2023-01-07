@@ -42,6 +42,7 @@ void Melody::setWavetable()
 	if (noteList.empty()) return;
 	for (int i = 0; i < noteList.size(); i++)
 	{
-		this->append(std::unique_ptr<Signal>(new Note(noteList[i])).get());
+		Note note = Note(noteList[i]);
+		this->append(note);
 	}
 }
