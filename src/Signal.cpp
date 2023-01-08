@@ -135,11 +135,11 @@ double Signal::getNoteFreq(std::string name)
 	{
 		freq = first_freq * pow(2.0, (double)octaveNumber);
 	}
-	if (name[1] == '#')
+	else if (name[1] == '#')
 	{
 		freq = first_freq * pow(2.0, (double)octaveNumber + 1.0 / 12.0);
 	}
-	if (name[1] == 'b')
+	else if (name[1] == 'b')
 	{
 		freq = first_freq * pow(2.0, (double)octaveNumber - 1.0 / 12.0);
 	}
